@@ -1,0 +1,61 @@
+project:
+  title: "QArbeit"
+  render: 
+    - fhdwVorlage.qmd 
+    - MeineArbeit.qmd
+  output-dir: _output
+
+editor: visual
+
+csl: hochschule-bonn-rhein-sieg.csl
+bibliography: references.bib
+
+lang: de
+babel-lang: ngerman
+
+format:
+  pdf:
+    documentclass: scrartcl
+    lang: de
+    classoption: 
+      # - 11.5pt 
+      - 12pt 
+      - "oneside"
+      - "open=any"
+      - BCOR=12mm
+      - DIV=14
+      - parskip=half*
+      - headsepline 
+      - footsepline 
+      - pointlessnumbers
+      - liststotoc 
+      - listof=leveldown
+    papersize: A4
+    margin-left: 4cm
+    margin-right: 2cm
+    margin-top: 2.5cm
+    margin-bottom: 2.5cm
+    template-partials:
+      - "before-body.tex"
+      - "_titlepage.tex" 
+      - "toc.tex"
+      - "after-body.tex"
+    include-in-header: 
+      - "in-header.tex"
+    link-citations: true
+    linkcolor: black
+    citecolor: black
+    colorlinks: false
+    toc: true
+    number-sections: true
+    toc-depth: 3
+    number-depth: 3    
+    lof: true
+    lot: true
+    sperrvermerk: false # true
+    keep-tex: true
+    # latex-max-runs: 1
+  html: 
+    lang: de
+    reference-location: margin
+    mainfont: Georgia, Palatino, Baskerville

@@ -1,0 +1,270 @@
+---
+jupyter: python3
+---
+
+# Grundlagen Quarto
+
+Quarto-Dokumente werden in Markdown geschrieben. Diese Auszeichnungssprache zeichnet sich durch gute Lesbarkeit und einfache Erlernbarkeit aus. Zahlreiche Markdown-Editoren wie Obsidian oder RStudio ermöglichen die sofortige Darstellung des Markdown-Codes in einer der entgültigen Ausgabe ähnlichen Form.
+
+Zahlreiche \LaTeX{}-Kommandos können in Markdown in gleicher Weise wie in \LaTeX{} benutzt werden. Allerdings wird dies dann nur beim Rendern in das PDF-Format und nicht bei der HTML-Ausgabe umgesetzt.
+
+## Schrift
+
+### Schriftgrößen
+
+Die folgenden Beispiele für Schriftgrößen werden nur bei der PDF-Ausgabe unterstützt, da sie mit \LaTeX{}-Befehlen realisiert werden. In der HTML-Ausgabe werden dies Befehle ignoriert und der Text in Standardschrift ausgegeben.
+
+\small Das ist kleine Schrift
+
+\normalsize Das ist normale Schrift
+
+\large Das ist große Schrift
+
+\Large Das ist größere Schrift
+
+\footnotesize Das ist Fußnoten Schrift
+
+\normalsize
+
+### Schrifttypen
+
+**Das ist ein fetter Text**
+
+*Das ist ein kursiver Text*
+
+[Das ist ein unterstrichener Text]{.underline}
+
+[Das ist ein in Kapitälchen gesetzter Text]{.smallcaps}
+
+Das ist ein normaler Text
+
+### Schrift Ausrichtung
+
+> Quote Text (Der gesamte Text innerhalb der Umgebung wird von beiden Seiten eingerückt)
+
+In einer Fußnote...[^1]
+
+[^1]: können zusätzliche Ergänzungen, Präzisierungen, Textverweise usw. eingeführt werden.
+
+## Abbildungen
+
+Hier ist mit @fig-mustermann ein Bild mit einer Unterschrift eingebunden. Bei der Quellenangabe mit dem \LaTeX{}-Befehl `\source` muss eine Leerzeile als Abstand eingehalten werden, da es sonst zu Fehlern bei der Erzeugung der Bildumgebung und des Querverweises kommt.
+
+![Eine Unterschift](img/Mustermann.png){#fig-mustermann fig-align="left" width="70mm"}
+
+\source{Herr Mustermann}
+
+In @fig-logo-fhdw sehen Sie das Logo der FHDW in Form eines Blocks mit zwei Bildern. Wenn @fig-logo-fhdw erst auf der folgenden Seite zu sehen sein sollte, dann liegt das daran, dass auf dieser Seite nicht mehr genug Platz war. der verbleibende Platz auf der Seite kann dann unter Umständen mit dem folgenden Text aufgefüllt werden.
+
+::: {#fig-logo-fhdw-dup layout-ncol="2"}
+![](img/fhdw.png){#fig-logo-fhdw width="70mm"}
+
+![](img/fhdw.png){width="40mm"}
+
+Das LOGO
+
+\source{www.fhdw.de}
+:::
+
+## Tabellen
+
+In @tbl-letters. sind einige Buchstaben dargestellt
+
+| Col1 | Col2 | Col3 |
+|------|------|------|
+| A    | B    | C    |
+| E    | F    | G    |
+| A    | G    | G    |
+
+: Buchstaben {#tbl-letters}
+
+\source{Eigene Darstellung}
+
+## Zitate
+
+Literaturarbeit ist ein zentraler Bestandteil wissenschaftlicher Arbeiten. Es wird erwartet, dass alle Quellen ordnungsgemäß angegeben und zitiert werden. Zur Verwaltung der Literatur empfiehlt sich die Verwendung einer entsprechenden Software, z.B. Zotero, für das es in Quarto umfangreiche Unterstützung gibt.
+
+Zu Demonstrationszwecken wird hier ein vergleichendes Zitat angegeben.[^2] Und hier ein „wörtliches Zitat"[^3]. Dies wiederum ist ein Zitat einer Quelle mit mehreren Autoren.[^4] Ein Zitat im Fließtext ist zu sehen bei @Fuller2011, der diese Form des Quellennachweises offenbar gerne nutzt.
+
+[^2]: Vgl. @Maslennikov2011, S.5 ff.
+
+[^3]: @Meier2010, S. 13 f.
+
+[^4]: Vgl. @Hocking2011a, S.32 ff.
+
+## Glossar und andere Verzeichnisse
+
+Ein \gls{Glossar} beinhaltet Erklärungen von Abkürzungen und Begriffen, die in der Arbeit verwendet werden. Wenn kein Glossar benötigt wird, so muss Eintrag `glossar` im Kopf der Hauptdatei auf `false` gesetzt werden, damit die dazugehörige Seite nicht angezeigt wird. Das gleiche gilt auch für den Sperrvermerk und die Gendererklärung.
+
+Die Glossareinträge selbst müssen in der Datei `Glossar.tex` zwischen den Kommentarzeilen `%1. ----` und `% 2. ----` eingetragen werden. Ein neuer Eintrag besteht aus einer Zeile, die Abkürzung und Erläuterung enthält, die durch das Zeichen `&` getrennt werden. Die Zeile wird beendet durch die Zeichenfolge `\\`.
+
+## Listen
+
+Eine einfache Liste mit Punkten in Markdown:
+
+-   Punkt 1
+-   Punkt 2
+    -   Unterpunkt 2.1
+    -   UP 2.2
+-   Punkt 3
+
+Eine einfache Liste mit Nummern in Markdown:
+
+1.  Punkt 1
+2.  Punkt 2
+3.  Punkt 3
+
+Eine einfache Liste mit römischen Nummern in Form von LaTex-Code:
+
+\begin{compactenum}[I.]
+    \item Punkt 1
+    \item Punkt 2
+    \item Punkt 3
+\end{compactenum}
+
+## Quelltext
+
+Quarto-Dokumente können zusätzlich zum Text Code-Blöcke enthalten. In diesen Code-Blöcken können z.B. Daten aufbereitet und analysiert werden um dann in Form von Tabellen oder Diagrammen im Dokument zu erscheinen.
+
+Wenn Sie auf die Schaltfläche **Render** klicken, wird ein Dokument erstellt, das sowohl den Inhalt als auch die Ausgabe des eingebetteten Codes enthält. Sie können Code wie folgt einbetten:
+
+```{python}
+1 + 1
+```
+
+Es kann sowohl R-Code als auch Python-Code eingebettet werden. Der Code kann spezielle Kommentare enthalten, die die Verarbeitung und die Ausgabe der Code-Zelle steuern.
+
+```{r}
+#| echo: false
+2 * 2
+```
+
+Die Option `echo: false` im obigen Code-Block schaltet z.B. das Drucken des Codes ab. Im gerenderten Dokument wird ann nur die Ausgabe des Code-Blocks angezeigt.
+
+Es gibt auch die Möglichkeit Code-Abschnitte in das Dokument aufzunehmen, die nur dargestellt, aber selbst nicht ausgeführt werden sollen. @lst-python zeigt eine solche Python-Code Zelle, die nicht ausgeführt wird[^5]:
+
+[^5]: @matthes2023 \newpage
+
+``` {#lst-python .python lst-cap="Python: Anzahl CPU auslesen"}
+import os 
+import sys 
+print(f'Dieser Rechner verfügt über {os.cpu_count()} CPU kernels.')
+```
+
+In @fig-polar ist ein Beispiel eines Polardiagramms aus @lst-polardiag zu sehen. Der Code ist doppelt vorhanden, um das Code-Listing hübsch darzustellen, wie in der [Quarto Dokumentation](https://quarto.org/docs/authoring/cross-references.html#code-listings)[^6] beschrieben. der zweite Code-Block erstellt dann das Diagramm und wird selbst nicht ausgegeben:
+
+[^6]: https://quarto.org/docs/authoring/cross-references.html#code-listings
+
+``` {#lst-polardiag .python lst-cap="Python: Beispiel Polardiagramm mit pyplot"}
+import numpy as np
+import matplotlib.pyplot as plt
+
+r = np.arange(0, 2, 0.01)
+theta = 2 * np.pi * r
+fig, ax = plt.subplots(
+  subplot_kw = {'projection': 'polar'} 
+)
+ax.plot(theta, r)
+ax.set_rticks([0.5, 1, 1.5, 2])
+ax.grid(True)
+plt.show()
+```
+
+```{python}
+#| label: fig-polar
+#| fig-cap: "Eine Gerade in Polarkoordinaten"
+#| echo: false
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+r = np.arange(0, 2, 0.01)
+theta = 2 * np.pi * r
+fig, ax = plt.subplots(
+  subplot_kw = {'projection': 'polar'} 
+)
+ax.plot(theta, r)
+ax.set_rticks([0.5, 1, 1.5, 2])
+ax.grid(True)
+plt.show()
+```
+
+## Anhänge
+
+Eine Studienarbeit oder Thesis enthält in vielen Fällen auch einen Anhang, in dem zusätzliches Material untergebracht werden kann, das für den Textteil zu umfangreich, für den interessierten Leser aber dennoch nützlich ist, wie z.B. @tbl-numbers.
+
+# Installation
+
+## Quarto etc.
+
+Zur Installation folgen Sie bitte der Anleitung auf den Seiten von [Quarto.org](https://quarto.org/docs/get-started/). Als Editor für Quarto empfiehlt sich R-Studio. Im Prinzip ist aber jeder Texteditor geeignet.
+
+## Python
+
+### Installation
+
+Unter Windows empfiehlt sich die Installation von Python (z.B. Version 3.10) in Form von Miniconda, einer Verwaltungsumgebung für Python-Installationen[^7]. In einem Cmd-Fenster[^8] kann dann die Funktionsfähigkeit getestet werden und die gewünschte Python-Version incl. der benötigten Pakete installiert werden:
+
+[^7]: [@MinicondaMinicondaDocumentation]
+
+[^8]: Unter Windows Startmenü: "Anaconda Prompt (miniconda3)"
+
+``` {.bash code-line-numbers="false"}
+conda create -n pq310 python=3.10.12
+
+conda activate pq310
+conda install numpy pandas matplotlib
+conda install jupyter
+```
+
+Die so erzeugte Python-Umgebung `pq310` sollte dann auch in den Optionseinstellungen von RStudio aktiviert werden.
+
+### Problembehebung
+
+Bei der Einrichtung von RStudio kann es wegen unterschiedlicher Python-Installationen zu Problemen wegen fehlender Python-Module kommen z.B.: `ModuleNotFoundError: No module named 'nbformat'`. Um zu ermitteln, welche Python-Installation von RStudio verwendet wird, führen Sie innerhalb Ihres Quarto-Dokuments den folgenden Code aus, der das verwendete Python-Executable und die Python-Version anzeigt.
+
+```{python}
+#| output: false 
+#| eval: false
+#| code-line-numbers: false
+import sys
+print(sys.executable)
+print(sys.version)
+```
+
+Es muss sichergestellt werden, dass in der Terminal-Umgebung, in der Quarto auf der Kommandozeile ausgeführt wird bzw. weitere Module installiert werden, die selbe Python-Umgebung genutzt wird, wie in RStudio. Dies kann z.B. mit folgenden Befehlen in der Terminal-Umgebung überprüft werden:
+
+``` {.bash code-line-numbers="false"}
+conda info --envs
+python --version
+```
+
+In dieser Umgebung müssen dann fehlende Module installiert werden z.B.:
+
+``` {.bash code-line-numbers="false"}
+pip install nbformat nbclient
+```
+
+## Verwendung der Vorlage
+
+Wenn Sie dieses Dokument lesen, dann haben Sie vermutlich schon die Vorlage bei GitHub auf Ihren Rechner geladen. Falls nicht, dann sollten Sie dies jetzt tun.
+
+Die weitere Vorbereitung besteht aus folgenden Schritten:
+
+1.  Für Ihre eigene Arbeit kopieren Sie die drei Dateien `MeineArbeit.qmd\`, `MeineArbeit01.qmd` sowie `MeineArbeit02.qmd` und benennen Sie diese Kopien individuell z.B. `Thesis2024UR.qmd` etc.
+2.  Die Kopie von `MeineArbeit.qmd` (im Beispiel also `Thesis2024UR.qmd`) ist dabei die Hauptdatei, deren Namen in die Datei `_quarto.yml` im Abschnitt `project:render:` eingetragen werden muss
+3.  Am Anfang der Hauptdatei befindet sich das sog. Yaml-Frontmatter, in dem zahlreiche weitere Konfigurationsoptionen zu finden sind. Diese müssen Sie so anpassen, damit auf dem Deckblatt, der Ehrenwörtlichen Erklärung etc. die korrekten Daten aufgeführt sind. Überprüfen Sie diese Stellen unbedingt in der generierten Ausgabe, bevor Sie Ihre Arbeit abgeben!
+4.  Testen Sie die Funktionsfähigkeit Ihrer Hauptdatei indem Sie auf der Kommandozeile folgenden Befehl ausführen:\
+    `quarto render Thesis2024UR.qmd --to pdf`
+5.  Die erzeugte PDF-Datei finden Sie im Verzeichnis `_output`
+6.  Beginnen Sie damit, Ihre Arbeit zu verfassen
+
+## Test der Silbentrennung
+
+Mit Stand vom 2024-05-15 gibt es offenbar ein Problem mit der Silbentrennung, wenn das Quarto-interne tiny\TeX verwendet wird. Durch setzen der Option `latex-tinytex: false` im Frontmatter-Bereich der Hauptdatei, lässt sich dies offenbar vermeiden. Voraussetzung ist allerdings eine funktionierende, von Quarto unabhängige \TeX-Installation.
+
+Silbentrennung Silbentrennung Silbentrennung Dampfschiffahrtsabteilungsschildbeleuchtung Dampfschiffahrtsabteilungsschildbeleuchtung Dampfschiffahrtsabteilungsschildbeleuchtung Dampfschiffahrtsabteilungsschildbeleuchtung Dampfschiffahrtsabteilungsschildbeleuchtung Dampfschiffahrtsabteilungsschildbeleuchtung Dampfschiffahrtsabteilungsschildbeleuchtung Dampfschiffahrtsabteilungsschildbeleuchtung Dampfschiffahrtsabteilungsschildbeleuchtung Dampfschiffahrtsabteilungsschildbeleuchtung Dampfschiffahrtsabteilungsschildbeleuchtung Dampfschiffahrtsabteilungsschildbeleuchtung Dampfschiffahrtsabteilungsschildbeleuchtung Dampfschiffahrtsabteilungsschildbeleuchtung Dampfschiffahrtsabteilungsschildbeleuchtung Dampfschiffahrtsabteilungsschildbeleuchtung Dampfschiffahrtsabteilungsschildbeleuchtung Dampfschiffahrtsabteilungsschildbeleuchtung Dampfschiffahrtsabteilungsschildbeleuchtung
+
+# Zusammenfassung
+
+Dieses Dokument und die damit verbundene Vorlage sollen eine Hilfe sein, um die Formalien für eine schriftliche Ausarbeitung an der FHDW bei der Verwendung von Quarto zu erfüllen. Es wurde dabei versucht, möglichst viele Automatismen von Quarto und \LaTeX{} zu nutzen um das Deckblatt, verschiedene Erklärungen und Verzeichnisse einfach in die Arbeit zu integrieren. Diese weitreichenden Funktionalitäten entbinden den Nutzer allerdings nicht von seiner Sorgfaltspflicht. Eine Absprache mit dem betreuenden Dozenten ist in jedem Fall ratsam.

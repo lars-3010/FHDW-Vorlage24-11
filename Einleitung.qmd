@@ -1,0 +1,21 @@
+---
+jupyter: python3
+---
+
+# Einleitung
+
+## Zielsetzung
+
+Dies ist eine Vorlage zum Erstellen von Bachelorarbeiten, Praxisarbeiten und Studienarbeiten an der FHDW mit Quarto und dem Schriftsatzsystem \LaTeX{}. Diese Vorlage ist eine Adaption der FHDW-\LaTeX{}-Vorlage mit Anregungen von Lars-Andre Scheiperpeter und wurde von und Ulrich Reus erstellt. Diese Vorlage darf, so wie sie ist, frei verwendet und modifiziert werden. Haftung für Fehler, verlorene Zeit oder in Folge einer Verwendung der Vorlage verursachte Schäden wird nicht übernommen.
+
+Die in der Vorlage verwendeten \LaTeX{}-Pakete und Styles sind sehr gut dokumentiert. Bezüglich tiefergehender Informationen zu den einzelnen Paketen sei auf die jeweilige Dokumentation verwiesen, die standardmäßig mit den jeweiligen Paketen installiert wird.
+
+Alternativ zur PDF-Ausgabe kann auch ein HTML-Dokument generiert werden. Da diese Vorlage allerdings auf den Textsatz per \LaTeX{} optimiert ist, müssen beim Erscheinungsbild der Web-Darstellung möglicherweise Abstriche in Kauf genommen werden.
+
+## Stand
+
+Diese Vorlage wurde im Mai 2024 zuletzt bearbeitet. Die verwendeten Software-Produkte wurden in den folgenden Versionen verwendet
+
+-   RStudio 2023.12.1+402
+-   Quarto 1.4.554
+-   Python 3.10.3
