@@ -1,0 +1,50 @@
+# Einleitung & Kontext
+
+```{=latex}
+\setcounter{figure}{0}
+\setcounter{table}{0}
+```
+
+## Problemstellung
+
+Die zunehmende Komplexität moderner Cloud-Infrastrukturen führt zu einer wachsenden Herausforderung im Bereich des Deployment-Managements. Mit der Transformation zu containerisierten, microservice-basierten Architekturen steigt die Anzahl der Komponenten, Abhängigkeiten und möglichen Fehlerquellen exponentiell. Die Fehlerbehebung bei fehlgeschlagenen Deployments gestaltet sich oft schwierig, da die generierten Fehlermeldungen technisch detailliert und für Benutzer ohne tiefgreifende Systemkenntnisse schwer verständlich sind (Laigner et al., 2021; Oyekunle et al., 2024; Abbildung A.1);
+
+Diese Herausforderung führt zu erhöhtem Supportaufwand, verlängerten Lösungszeiten, reduzierter Produktivität und mangelnder Transparenz bezüglich der Fehlerursachen. In modernen verteilten Systemarchitekturen ist eine einzelne Fehlermeldung häufig das Resultat komplexer Interaktionen zwischen verschiedenen Systemkomponenten, was die Diagnose zusätzlich erschwert (Tzanettis et al., 2022).
+
+## Motivation
+
+Die Bewältigung dieser Herausforderung ist aus mehreren Gründen von entscheidender Bedeutung:
+
+**Wachsende Komplexität:** Moderne Microservice-Architekturen bestehen oft aus Hunderten von Services, was die Fehlerdiagnose erheblich erschwert. Die Anzahl der potenziellen Fehlerquellen steigt dabei nicht linear, sondern exponentiell mit der Anzahl der interagierenden Komponenten (Oyekunle et al., 2024; Saurabh et al., 2024).
+
+**Erhöhte Transparenz:** Bessere Erklärungen schaffen Transparenz und Vertrauen in die Plattform, besonders in komplexen, verteilten Systemen, wo die Ursache-Wirkungs-Beziehungen oft nicht unmittelbar ersichtlich sind und erhöhen somit auch die Benutzererfahrung (Dash, 2024; Dhoopati, 2023).
+
+## Warum LLMs?
+
+Large Language Models (LLMs) bieten für diese Herausforderung entscheidende Vorteile gegenüber traditionellen Ansätzen:
+
+-   **Verarbeitung natürlicher Sprache:** LLMs können unstrukturierte Fehlermeldungen interpretieren und in verständliche Erklärungen übersetzen (Brown et al., 2020; Wang et al., 2023).
+
+-   **Adaptivität:** Im Gegensatz zu regelbasierten Systemen können LLMs mit der Variabilität und Dynamik moderner Fehlerszenarien umgehen (Mao et al., 2024).
+
+-   **Skalierbarkeit:** LLMs können mit einer wachsenden Anzahl und Vielfalt von Fehlermeldungen umgehen, ohne manuelle Anpassungen zu erfordern (Alibakhsh, 2023).
+
+-   **Lernfähigkeit:** Sie haben das Potenzial, aus Feedback zu lernen und ihre Erklärungen kontinuierlich zu verbessern (Ouyang et al., 2022; Stiennon et al., 2020). Diese Eigenschaften machen LLMs deutlich überlegen gegenüber traditionellen Ansätzen, die mit der Komplexität moderner Cloud-Umgebungen oft überfordert sind. Die Fähigkeit, kontextbezogene Erklärungen zu generieren, adressiert direkt das Problem technisch komplexer Fehlermeldungen (Talukdar & Biswas, 2023).
+
+## Projektkontext
+
+Diese Arbeit konzentriert sich auf das **CAS** der Deutschen Telekom, eine Plattform zur automatisierten Bereitstellung und Verwaltung von Cloud-Ressourcen. Das entwickelte CASGPT-Feature erweitert dieses System, um Benutzern mit unterschiedlichen Erfahrungsniveaus verständliche Erklärungen für technische Fehlermeldungen in natürlicher Sprache zu bieten. Die Implementierung und Weiterentwicklung folgt dem Feed-Forward/Feed-Backward-Prinzip, bei dem ein initialer Design-Ansatz durch systematische Analyse und Feedback kontinuierlich verbessert wird. Dieser Ansatz harmoniert mit der Design Science Research(DSR) Methodik zur Entwicklung innovativer IT-Artefakte (Hevner et al., 2004; Engström et al., 2020). Die Integration des CASGPT-Features stellt einen konkreten Anwendungsfall für die Nutzung von LLMs in Enterprise-Umgebungen dar und bietet einen praxisnahen Kontext für die Erforschung der Evolution zu einem selbstlernenden System (Devaraju, 2024).
+
+## Forschungsziel
+
+**Hauptforschungsfrage:** "Wie kann ein erfolgreich in ein Enterprise-System integriertes LLM-basiertes Fehlererklärungssystem durch systematische Analyse und Feedback zu einem selbstlernenden System evolvieren?"
+
+**Unterforschungsfragen:**
+
+1\. Welche Grundlagen und Anforderungen sind für eine erfolgreiche Integration von LLMs zur Fehlererklärung in Enterprise-Systeme notwendig?
+
+2\. Wie können Fehlermuster und Systemfeedback systematisch für eine autonome Systemevolution genutzt werden?
+
+3\. Welche Architekturkonzepte ermöglichen den Übergang von einem reaktiven zu einem proaktiven, selbstlernenden System?
+
+**Umfang und Abgrenzung:** Diese Forschung konzentriert sich auf Deployment-Fehler innerhalb des CAS-Systems. Sie umfasst die praktische Implementierung eines Prototyps und die konzeptionelle Ausarbeitung eines evolutionären Entwicklungskonzepts. Die Arbeit leistet einen Beitrag zum Verständnis der systematischen Evolution von KI-gestützten Assistenzsystemen in Unternehmenssystemen (Perron et al., 2025) und folgt dem iterativen Prozess von Design Science Research (Venable et al., 2016).

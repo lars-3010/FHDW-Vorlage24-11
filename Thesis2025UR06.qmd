@@ -1,0 +1,135 @@
+# Evolutionäres Weiterentwicklungskonzept
+
+## Zielzustand und Wertbeitrag
+
+Der angestrebte Zielzustand entwickelt das aktuelle CASGPT von generischen Erklärungen (Wang et al., 2023) zu spezifischen, kontextbewussten Erklärungen; von statischer Prompt-Konfiguration zu kontinuierlicher, feedback-basierter Verbesserung (Ouyang et al., 2022); von reaktiver zu proaktiver, vorhersagebasierter Fehlerbehandlung (Ahmed et al., 2023); von einmaliger Erklärung zu dialogbasierter Interaktion (Wu et al., 2022); und von keiner Lernfähigkeit zu systematischem Feedback-basiertem Lernen (Li et al., 2021). Ein detaillierter Vergleich zwischen dem aktuellen Zustand und dem Zielzustand wurde erarbeitet (Tabelle A.9).
+
+Dieser Zielzustand verspricht mehrere konkrete Wertbeiträge:
+
+1\. **Erhöhte Benutzerproduktivität** durch präzisere, kontextspezifische Erklärungen
+
+2\. **Reduzierter Supportaufwand** durch verbesserte Selbsthilfe-Möglichkeiten
+
+3\. **Verbesserte Systemzuverlässigkeit** durch proaktive Fehlervermeidung
+
+4\. **Kontinuierliche Wissenserweiterung** als selbstverstärkender Lernprozess
+
+Dieser Zielstand orientiert sich an dem Rahmen des Feed-Forward/Feed-Backward-Ansatzes, der die gesamte CASGPT-Entwicklung charakterisiert.
+
+## Feed-Forward/Feed-Backward-Integration
+
+### MAPE-K-Schleife als strukturelles Rahmenwerk
+
+Um den Feed-Forward/Feed-Backward-Ansatz in ein operatives Designprinzip zu überführen, wird das MAPE-K-Framework (Monitor, Analyze, Plan, Execute, Knowledge) für selbstadaptive Systeme (Cheng et al., 2009) als strukturelles Rahmenwerk verwendet. Dieses Framework implementiert einen geschlossenen Regelkreis für kontinuierliches Lernen und integriert Feedback-Mechanismen in einen strukturierten Adaptionsprozess:
+
+-   **Monitor:** Sammlung von Fehlermeldungen, Benutzerfeedback und Systemmetriken
+
+-   **Analyze:** Musteranalyse, Fehlerkategorisierung und Feedbackauswertung
+
+-   **Plan:** Optimierung der Prompts und Erweiterung der Wissensbasis
+
+-   **Execute:** Anwendung optimierter Prompts und Integration neuen Wissens
+
+-   **Knowledge:** Zentrale Wissensbasis mit Systemkontext und Fehlermustern
+
+Der Knowledge-Bereich dient dabei als gemeinsame Grundlage für Feed-Forward (Anwendung von Wissen) und Feed-Backward (Integration neuen Wissens).
+
+### Feedback-Mechanismen als Kernelemente
+
+Basierend auf den Experteninterviews (M: "selbstlernend immer sinnvoll → Antwortsqualität bewerten") werden folgende Feedback-Mechanismen konzipiert:
+
+**1. Explizites Feedback:**
+
+-   **Qualitätsbewertung:** Einfaches Bewertungssystem (+/-) nach jeder Erklärung
+
+-   **Kategorisiertes Feedback:** Vorgegebene Kategorien wie "Zu technisch", "Zu vage"
+
+-   **Verbesserungsvorschläge:** Freitextfeld für konkrete Anregungen
+
+**2. Implizites Feedback:**
+
+-   **Wiederkehrende Fehler:** Automatische Erkennung von Fällen, in denen derselbe Fehler nach einer Erklärung erneut auftritt
+
+-   **Nutzungsstatistiken:** Analyse der Nutzungsmuster (z.B. Häufigkeit der Feature-Nutzung)
+
+### BlueBox-übergreifender Wissenstransfer
+
+Ein besonders effektiver Mechanismus zur Systemverbesserung ist die Übertragung von Lösungen zwischen verschiedenen BlueBoxes, wie vom DevOps Engineer hervorgehoben:
+
+> "Wenn Fehler bei einer anderen BlueBox war, direkt in Prompt mit schreiben - das war übrigens der Fix → BlueBox kann das selber machen \[...\] Spart Zeit → weniger Supportaufwand bei selbem Fehler" (D)
+
+Dieser Ansatz implementiert einen selbstverstärkenden Lernmechanismus durch:
+
+1\. **Erfassung erfolgreicher Fixes:** Dokumentation erfolgreicher Fehlerbehebungen mit Kontext
+
+2\. **Erkennung ähnlicher Fehler:** Automatische Identifikation von Ähnlichkeiten zu früheren Fehlern
+
+3\. **Integration von Lösungswissen:** Wiederverwendung bewährter Lösungsansätze in neuen Kontexten
+
+## Systematische Analyse für proaktive Fehlervorhersage
+
+### Clustering von Fehlermeldungen
+
+Zur Identifikation ähnlicher Fehler wird ein Clustering-Ansatz implementiert, der die Grundlage für den BlueBox-übergreifenden Wissenstransfer bildet (Vorobyov et al., 2021):
+
+-   **Aufbereitung der Fehlertexte:** Entfernung variabler Elemente wie Zeitstempel und Tokenisierung
+
+-   **Gruppierung:** Anwendung von k-Means oder DBSCAN zur automatischen Cluster-Bildung
+
+-   **Anwendung für Prompt-Optimierung:** Entwicklung spezifischer Prompt-Templates für häufige Fehlerklassen
+
+Das Clustering ermöglicht eine klarere Unterscheidung zwischen nutzerseitigen und systemseitigen Fehlern – ein Aspekt, der in den Interviews als wichtig hervorgehoben wurde.
+
+### Association Rule Mining für Fehlervorhersage
+
+Association Rule Mining (ARM) dient zur Identifikation von Zusammenhängen zwischen Konfigurationsparametern und Fehlertypen (Wang et al., 2022; Li et al., 2024):
+
+-   **Regelextraktion:** Anwendung von Algorithmen wie Apriori oder FP-Growth
+
+-   **Praktische Anwendung:** Übersetzung der Regeln in verständliche Warnungen und Empfehlungen
+
+Durch die Kombination von Clustering und ARM können Fehlermuster systematisch identifiziert und für die Verbesserung des Systems genutzt werden, was direkt auf die zweite Unterforschungsfrage einzahlt.
+
+**Beispiel für Assoziationsregeln:**
+
+> `WENN (service_version="1.2.3" UND network_config="internal") DANN Wahrscheinlichkeit für Fehlertyp "permission_denied" = 78% EMPFEHLUNG: "Überprüfen Sie die Berechtigungen vor dem Deployment"`
+
+## Proaktive Fähigkeiten
+
+### Kontextsensitive Erklärungen
+
+Die Integration von Systemkontext in die Erklärungen bildet die Grundlage für proaktive Fähigkeiten. Durch die dynamische Einbindung von Konfigurationsinformationen, Systemarchitektur und Abhängigkeiten können Erklärungen deutlich spezifischer und handlungsrelevanter gestaltet werden. Dies umfasst die: Automatische Extraktion relevanter Konfigurationsparameter, Integration von Systemarchitekturwissen und Berücksichtigung von Service-Interaktionen und Abhängigkeiten.
+
+### Interaktive Fehleranalyse
+
+Entsprechend dem Vorschlag des Product Owners zur Erweiterung des Systems um interaktive Funktionen: \> "Weiterentwicklung: interaktiver: z.B. in die Erklärung ein Chatfenster → KI nochmal Nachfragen stellen" (P)
+
+Das System kann um einen dialogorientierten Ansatz erweitert werden, bei dem Benutzer Rückfragen zu Erklärungen stellen können. Dies unterstützt den Übergang zu einem proaktiveren System durch:
+
+-   **Vertiefende Erklärungen:** Detailliertere Informationen zu spezifischen Aspekten eines Fehlers
+
+-   **Schrittweise Fehleranalyse:** Geführte Exploration der Fehlerursachen
+
+-   **Kontextualisierte Lösungsvorschläge:** Anpassung der Lösungsvorschläge an die spezifische Situation des Benutzers
+
+## Technische Verbesserungen und Priorisierung
+
+Die Evolution zu einem selbstlernenden System erfordert zusätzliche Komponenten und eine priorisierte Umsetzung. Basierend auf den Experteninterviews, der technischen Machbarkeit und dem erwarteten Wertbeitrag wird folgende Implementierungsstrategie vorgeschlagen:
+
+**Hohe Priorität:**
+
+-   Systemkontext-Integration: Implementierung eines Systemkontext-Connectors zur dynamischen Einbindung von CAS-Komponenten und Konfigurationsinformationen
+
+-   Einfacher Feedback-Mechanismus: Einführung eines "Hilfreich/Nicht hilfreich"-Buttons mit Feedback-Datenbank zur Bewertungsspeicherung
+
+-   BlueBox-übergreifender Wissenstransfer: Entwicklung von Mechanismen zur Dokumentation und Wiederverwendung erfolgreicher Fehlerbehebungen
+
+**Mittlere Priorität:**
+
+-   Verbesserte Fehlerkategorisierung und Cluster-Erkennung mittels Analyse-Engine
+
+-   Konfigurationsempfehlungen basierend auf historischen Daten
+
+-   Erweiterter Prompt-Generator mit interaktiver Chatbot-Funktionalität
+
+Diese inkrementelle Umsetzungsstrategie gewährleistet, dass jede Implementierungsphase einen konkreten Mehrwert liefert und gleichzeitig die Grundlage für nachfolgende Erweiterungen schafft.

@@ -1,0 +1,37 @@
+# Theoretische Grundlagen
+
+## Large Language Models im Enterprise-Kontext
+
+LLMs, basierend auf der Transformer-Architektur (Vaswani et al., 2017), bieten durch ihre Fähigkeit, natürliche Sprache zu verstehen und zu generieren, neue Möglichkeiten für Unternehmensanwendungen (Brown et al., 2020). Für die Entwicklung eines Fehlererklärungssystems sind drei Eigenschaften von LLMs von besonderer Bedeutung: Kontextverständnis, Generalisierungsfähigkeit und Adaptivität (Törnberg, 2024). LLMs können komplexe Zusammenhänge in technischen Fehlermeldungen erfassen und interpretieren, bekannte Muster auf neue Fehlerszenarien übertragen und sich durch gezieltes Prompt Engineering an domänenspezifische Aufgaben anpassen (Wang et al., 2023; Kumar et al., 2025). Die Integration von LLMs in Enterprise-Systeme eröffnet das Potenzial zur Automatisierung, verbesserten Benutzererfahrung, Wissensverteilung, gesteigerter Integration und Skalierbarkeit (Alibakhsh, 2023; Devaraju, 2024). Gleichzeitig sind Herausforderungen wie Sicherheit, Ressourcenbedarf, Datenschutz, Interpretierbarkeit und Wartbarkeit zu adressieren (Alibakhsh, 2023; Chandramouli, 2022; Dhoopati, 2023). Eine detaillierte Gegenüberstellung dieser Chancen und Herausforderungen findet ist verfügbar (Tabelle A.4).
+
+Trotz ihrer Stärken weisen LLMs zwei kritische Limitationen auf, die für Fehlererklärungssysteme besonders relevant sind:
+
+1\. **Halluzinationen:** LLMs können technisch plausibel klingende, aber faktisch falsche Informationen generieren (Orgad et al., 2024). Dies ist besonders problematisch bei technischen Fehlererklärungen, da fehlerhafte Lösungsvorschläge zu weiteren Problemen führen können. Ein konkretes Beispiel wäre die Identifikation nicht existierender Konfigurationsparameter oder das Empfehlen nicht verfügbarer API-Aufrufe. Aktuelle Forschungen zeigen, dass LLMs oft "mehr wissen als sie zeigen" – sie besitzen intern korrekte Repräsentationen, produzieren aber dennoch falsche Ausgaben, was das Vertrauen in LLM-basierte Systeme beeinträchtigen kann.
+
+2\. **Mangelndes Systemkontextwissen:** LLMs fehlt spezifisches Wissen über die Systemarchitektur, Komponenten und deren Interaktionen im jeweiligen Enterprise-System (Wang et al., 2023; Wrick Talukdar & Biswas, 2023). Ohne diesen Kontext können LLMs nur allgemeine Erklärungen liefern, die möglicherweise nicht auf die spezifischen Umstände des Fehlers eingehen.
+
+## Ansätze zur Fehlererklärung
+
+Traditionelle Ansätze zur Fehlerbehandlung, wie statische Fehlercodes und umfangreiche Dokumentationen, stoßen in komplexen, dynamischen Systemen an ihre Grenzen. Regelbasierte Systeme bieten zwar Präzision bei bekannten Fehlern, sind aber unflexibel gegenüber neuen Fehlertypen und erfordern hohen manuellen Aufwand (Tabelle A.5). Im Gegensatz dazu bieten KI-basierte Ansätze, insbesondere LLMs, eine höhere Flexibilität und Adaptivität. Sie können aus unstrukturierten Fehlermeldungen relevante Informationen extrahieren, natürlichsprachliche Erklärungen generieren und sich potenziell an neue Fehlersituationen anpassen (Sain et al., 2024, Ahmed et al., 2023, Chen et al., 2023, Zhang et al., 2024). Die systematische Kategorisierung von Fehlern ist ein wichtiger Schritt, um die Effizienz der Fehlerbehandlung zu steigern (Abdallah, 2024; Agrawal, 2016; Ahmed, 2023). Durch die Identifikation wiederkehrender Fehlermuster können Ursachen schneller erkannt, Fehler priorisiert und gezielte Lösungsansätze entwickelt werden (Wang et al., 2022; Li et al., 2024). Sie ermöglicht zudem verbesserte Ursachenerkennung, effizientere Fehlerbehandlung, sinnvolle Prioritisierung und die proaktive Erkennung von Fehlermustern. (Vorobyov et al., 2021).
+
+## Prompt Engineering
+
+Prompt Engineering ist der Schlüssel zur effektiven Nutzung von LLMs (White et al., 2023; Cheng et al., 2024). Es umfasst die systematische Gestaltung von Eingabeaufforderungen, um das Verhalten des LLM gezielt zu steuern und qualitativ hochwertige Ausgaben zu erzielen (Törnberg, 2024). Grundlegende Prinzipien für erfolgreiches Prompt Engineering sind Klarheit, Spezifität, Strukturierung, Kontextualisierung, Few-Shot Learning und Chain-of-Thought-Prompting (Brown et al., 2020; Wei et al., 2022; White et al., 2023). Darüber hinaus existieren spezifische Prompt-Patterns, die als wiederverwendbare Bausteine für komplexere Interaktionen dienen können (White et al., 2023).
+
+Besonders relevant für Fehlererklärungssysteme sind:
+
+-   Das **Persona Pattern**, das dem LLM eine spezifische Rolle als Experte für Fehlererklärungen zuweist
+
+-   Das **Template Pattern**, das eine strukturierte Ausgabe mit Ursache, Auswirkung und Lösungsvorschlägen vorgibt
+
+-   Das **Context Enhancement Pattern**, das domänenspezifisches Wissen in den Prompt integriert
+
+-   Das **Cognitive Verifier Pattern**, das das LLM zur Selbstüberprüfung seiner Antworten auffordert, um Halluzinationen zu reduzieren
+
+-   Das **Chain-of-Thought Pattern**, das schrittweises Denken fördert und die Reasoning-Fähigkeiten verbessert
+
+Eine detaillierte Übersicht dieser Patterns wurde zusammengestellt (Tabelle A.6). Für technische Fehlererklärungen sind insbesondere die Unterscheidung zwischen System- und Benutzer-Prompt, die Klassifizierung von Fehlertypen und ein strukturiertes Ausgabeformat entscheidend (Vatsal & Dubey, 2024; White et al., 2023). Ein gut gestalteter System-Prompt definiert die Rolle und das erwartete Verhalten des LLM, während der Benutzer-Prompt die spezifische Fehlermeldung und relevanten Kontext enthält. Dieser iterative Prozess aus Design, Evaluation und Verbesserung entspricht dem Feed-Forward/Feed-Backward-Paradigma und ermöglicht die systematische Evolution des Systems (Bae et al., 2024).
+
+## Selbstlernende Systeme und Feed-Forward/Feed-Backward
+
+Der MAPE-K-Zyklus (Monitor-Analyze-Plan-Execute-Knowledge) bietet ein strukturiertes Framework für selbstadaptive Systeme, indem er kontinuierliche Überwachung, Analyse, Planung und Ausführung von Anpassungen ermöglicht (Cheng et al., 2009). Diese Struktur harmoniert mit dem Feed-Forward/Feed-Backward-Ansatz, da sie einen geschlossenen Regelkreis für kontinuierliches Lernen und Anpassen implementiert. Eine detaillierte Beschreibung der MAPE-K-Komponenten im Kontext von CASGPT wurde entwickelt (Tabelle A.7). Feedback-Schleifen ermöglichen die systematische Verbesserung aus Erfahrungen (Kang & Meira-Goes, 2022), während Human-in-the-Loop-Ansätze menschliches Expertenwissen in den Lernprozess integrieren (Wu et al., 2022; Stiennon et al., 2020). Für den Übergang von einem reaktiven zu einem proaktiven System sind zwei Mustererkennungstechniken besonders relevant: Das Clustering von Fehlermeldungen ermöglicht die Identifikation wiederkehrender Muster (Vorobyov et al., 2021), während Association Rule Mining Konfigurationsabhängigkeiten erkennen und für proaktive Konfigurationsvalidierungen nutzen kann (Wang et al., 2022; Li et al., 2024). Diese Techniken, kombiniert mit dem MAPE-K-Framework, bilden die Grundlage für die systematische Evolution eines reaktiven Fehlererklärungssystems zu einem proaktiven, selbstlernenden System.

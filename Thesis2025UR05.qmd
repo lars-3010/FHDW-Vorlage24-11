@@ -1,0 +1,49 @@
+# Evaluation und Analyse
+
+## Methodik der Evaluation
+
+Die Evaluation des CASGPT-Systems erfolgte mittels halbstrukturierter Experteninterviews mit drei Schlüsselpersonen: einem Product Owner (P), einem Full-Stack-Entwickler (M) und einem DevOps Engineer (D). Diese multiperspektivische Herangehensweise ermöglicht eine ganzheitliche Beurteilung des Systems (Engström et al., 2020).
+
+Die etwa 45-60-minütigen Interviews wurden protokolliert und mittels qualitativer Inhaltsanalyse ausgewertet (Mayring, 2014; Notizen A.12)). Die Analyse erfolgte durch ein kombiniert deduktiv-induktives Kodierungsverfahren, wobei zunächst theoriegeleitete Hauptkategorien definiert und anschließend induktiv weitere Kategorien aus dem Material entwickelt wurden.
+
+## Zentrale Evaluationsergebnisse
+
+Die qualitative Analyse der Interviews ergab mehrere zentrale Erkenntnisse:
+
+Der **Bedarf an systemspezifischem Kontext** wurde am häufigsten thematisiert (8 Nennungen), gefolgt vom **Mangel an Spezifität** in den Erklärungen (6 Nennungen) und dem wahrgenommenen **Potenzial des Systems** (6 Nennungen). Der **Beitrag zum Benutzerverständnis** wurde ebenfalls als wesentlicher positiver Aspekt hervorgehoben (5 Nennungen).
+
+Diese quantitative Verteilung deutet auf ein grundsätzlich wertvolles System hin, das durch die Integration von spezifischem Systemwissen deutlich verbessert werden könnte (Tabelle A.8).
+
+## Thematische Analyse und rollenspezifische Perspektiven
+
+### Systemkontext als Hauptlimitation
+
+Alle drei Experten identifizierten den mangelnden Systemkontext als zentrale Einschränkung:
+
+> "Ja, die System Knowledge fehlt, die man in die Prompts einbauen sollte" (D)
+>
+> "Wenn System Knowledge (Wiki Dump) dem Model gegeben wird, hat es mehr Ahnung worum es geht" (M)
+
+Der DevOps Engineer betonte den Bedarf an spezifischeren Handlungsempfehlungen, während der Full-Stack-Entwickler auf die technische Umsetzbarkeit durch Integration von Systemdokumentation fokussierte. Der Product Owner sah dies als Möglichkeit zur Erhöhung des Systemwerts.
+
+### Grundnutzen und Transparenz
+
+Trotz der identifizierten Einschränkungen bestätigten alle Interviews den Mehrwert des Systems:
+
+> "Doch schon einiges an Hilfe, nicht jeder User weiß, was ein DSO ist" (M)
+>
+> "Wertschöpfung: für Menschen komisch wirkenden Fehler in natürliche Sprache übersetzen" (P)
+
+Der Hauptwert liegt in der Übersetzungsleistung von technischen Details in verständliche Sprache und der damit verbundenen Transparenz und Vertrauensbildung.
+
+### Integration und Akzeptanz
+
+Die Integration des Features in den bestehenden Workflow wurde einheitlich positiv bewertet, wobei die nahtlose Implementierung in die Benutzeroberfläche und die Übereinstimmung mit den Nutzererwartungen hervorgehoben wurden. Der DevOps Engineer identifizierte die Antwortzeit als kritischen Faktor: "Nicht zu hohe Latenz zwischen der Antwort... wenn man so ca. 5 Sekunden wartet ist's okay" (D).
+
+### Entwicklungspotenzial
+
+Als konkrete Erweiterungsmöglichkeiten wurden vorgeschlagen:
+
+-   **BlueBox-übergreifender Wissenstransfer**: "Wenn Fehler bei einer anderen BlueBox war, direkt in Prompt mit schreiben - das war übrigens der Fix" (D)
+-   **Interaktives Chatfenster**: "Weiterentwicklung: interaktiver: z.B. in die Erklärung ein Chatfenster → KI nochmal Nachfragen stellen" (P)
+-   **Feedbackmechanismen**: "Selbstlernend immer sinnvoll → Antwortqualität bewerten" (M)

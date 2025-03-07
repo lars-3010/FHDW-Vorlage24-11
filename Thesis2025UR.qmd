@@ -1,0 +1,872 @@
+---
+titlepage-logo: img/fhdw.png
+Organisation: FHDW Bielefeld
+Studiengang: Wirtschaftsinformatik - Software Engineering
+Dokumententyp: Praxisarbeit
+Titel: Implementierung und Weiterentwicklung eines LLM-basierten Fehlererklärungssystems zur intelligenten Systemverbesserung
+Verfasser: |-
+  \textbf{Lars Boes}\
+  Schillerstraße 2c\
+  53489 Sinzig
+Pruefer: Yvonne Gorniak
+Abgabedatum: 03.03.2025
+Autor: Lars Boes
+AutorUnterschrift: img/LarsBoes.png
+Ort: Valencia
+Kooperationsunternehmen: Deutsche Telekom Technik GmbH
+jupyter: python3
+format:
+  pdf:
+    documentclass: scrartcl
+    default: true
+    sperrvermerk: false
+    gendervermerk: true
+    glossar: true
+    keep-tex: true
+    latex-tinytex: false
+    classoption:
+      - numbers=noenddot
+      - listof=totoc
+  html:
+    lang: de
+---
+
+<!-- Das Dokument beginnt hier: -->
+
+<!-- Mittels include-Anweisungen werden weitere qmd-Dateien eingebunden -->
+
+{{< include Thesis2025UR01.qmd >}}
+
+{{< include Thesis2025UR02.qmd >}}
+
+{{< include Thesis2025UR03.qmd >}}
+
+{{< include Thesis2025UR04.qmd >}}
+
+{{< include Thesis2025UR05.qmd >}}
+
+{{< include Thesis2025UR06.qmd >}}
+
+{{< include Thesis2025UR07.qmd >}}
+
+<!-- Anhang ### Den folgenden Code-Block nicht entfernen!!!  -->
+
+\appendix
+\renewcommand{\thefigure}{A\arabic{figure}}
+\renewcommand{\thetable}{A\arabic{table}}
+\setcounter{figure}{0}
+\setcounter{table}{0}
+
+# Anhang
+
+## User Interface
+
+![](img/JSON.png)
+
+\newpage
+
+## detailliertes Komponenten Diagramm
+
+![](img/KomponentenDiagrammDetailliert.png)
+
+\newpage
+
+## Prompt-Engineering Workflow
+
+![](img/PromptEngineeringWorkflow.png)
+
+\newpage
+
+## Chancen und Herausforderungen bei der Integration von LLMs in Enterprise-Systemen
+
++-------------------------------+---------------------------------------------------------------------+------------------------------------------------------------------------------------------------+
+| **Chancen**                   | **Beschreibung**                                                    | **Herausforderungen:**                                                                         |
+|                               |                                                                     |                                                                                                |
+|                               |                                                                     | **Beschreibung**                                                                               |
++===============================+=====================================================================+================================================================================================+
+| Automati-\                    | Reduktion manueller Prozesse durch natürlichsprachliche Interaktion | **Sicherheit**: Schutz sensibler Daten und Konformität mit Zero-Trust-Architektur (Dash, 2024) |
+| sierung                       |                                                                     |                                                                                                |
++-------------------------------+---------------------------------------------------------------------+------------------------------------------------------------------------------------------------+
+| Verbesserte Benutzererfahrung | Vereinfachung komplexer technischer Inhalte                         | **Ressourcenbedarf**: Hohe Anforderungen an Rechenleistung und Speicher (Hu et al., 2021)      |
++-------------------------------+---------------------------------------------------------------------+------------------------------------------------------------------------------------------------+
+| Wissens-                      | Demokratisierung von Expertenwissen                                 | **Datenschutz & Compliance**: Einhaltung von Regularien wie DSGVO (Devaraju, 2024)             |
+|                               |                                                                     |                                                                                                |
+| distribution                  |                                                                     |                                                                                                |
++-------------------------------+---------------------------------------------------------------------+------------------------------------------------------------------------------------------------+
+| Integrations-                 | Brückentechnologie zwischen verschiedenen Systemen                  | **Interpretierbarkeit**: Nachvollziehbarkeit von Entscheidungen (Kumar et al., 2025)           |
+|                               |                                                                     |                                                                                                |
+| fähigkeit                     |                                                                     |                                                                                                |
++-------------------------------+---------------------------------------------------------------------+------------------------------------------------------------------------------------------------+
+| Skalier-                      | Bewältigung wachsender und diverser Fehlertypen                     | **Wartbarkeit**: Kontinuierliche Anpassung und Optimierung (Alibakhsh, 2023)                   |
+|                               |                                                                     |                                                                                                |
+| barkeit                       |                                                                     |                                                                                                |
++-------------------------------+---------------------------------------------------------------------+------------------------------------------------------------------------------------------------+
+
+\newpage
+
+## Vergleich verschiedener Fehlererklärungsansätze
+
++----------------------------------+---------------------------------------+----------------+-----------------------------------------+---------------------------+
+| **Ansatz**                       | **Beschreibung**                      | **Stärken**    | **Schwächen**                           | **Relevanz für CASGPT**   |
++==================================+=======================================+================+=========================================+===========================+
+| **Traditionelle Ansätze**        |                                       |                |                                         |                           |
++----------------------------------+---------------------------------------+----------------+-----------------------------------------+---------------------------+
+| Statische Fehlercodes            | Standardisierte Fehlermeldungen       | Konsis-\       | Kontextlosigkeit, schwer verständlich   | Baseline für Verbesserung |
+|                                  |                                       | tenz           |                                         |                           |
++----------------------------------+---------------------------------------+----------------+-----------------------------------------+---------------------------+
+| Dokumen-\                        | Umfassende Fehlerbeschreibungen       | Detailtiefe    | Wartungs-\                              | Ergänzende Wissensquelle  |
+| tationen                         |                                       |                | aufwand,\                               |                           |
+|                                  |                                       |                | Veraltung                               |                           |
++----------------------------------+---------------------------------------+----------------+-----------------------------------------+---------------------------+
+| Rule-Based Error Handling        | Regelbasierte Fehlerbehandlung        | Präzision bei\ | Schlechte Skalierbarkeit                | Ergänzender Ansatz        |
+|                                  |                                       | bekannten\     |                                         |                           |
+|                                  |                                       | Fehlern        |                                         |                           |
++----------------------------------+---------------------------------------+----------------+-----------------------------------------+---------------------------+
+| **KI-basierte Ansätze**          |                                       |                |                                         |                           |
++----------------------------------+---------------------------------------+----------------+-----------------------------------------+---------------------------+
+| Case-Based Reasoning             | Lösung basierend auf ähnlichen Fällen | Praxis-\       | Abhängigkeit von Fallbasis              | Konzeptuelle Ähnlichkeit  |
+|                                  |                                       | bewährte\      |                                         |                           |
+|                                  |                                       | Lösungen       |                                         |                           |
++----------------------------------+---------------------------------------+----------------+-----------------------------------------+---------------------------+
+| ML-Clustering                    | Musterbasierte Fehlerkategorisierung  | Automa-\       | Keine natürlichsprachlichen Erklärungen | Ergänzende Technik        |
+|                                  |                                       | tische\        |                                         |                           |
+|                                  |                                       | Gruppie-\      |                                         |                           |
+|                                  |                                       | rung           |                                         |                           |
++----------------------------------+---------------------------------------+----------------+-----------------------------------------+---------------------------+
+| LLM-basierte Root Cause Analysis | LLM-gestützte Ursachenanalyse         | Natürlich-\    | Halluzinationen, Ressourcenbedarf       | Direktes Vorbild          |
+|                                  |                                       | sprachliche\   |                                         |                           |
+|                                  |                                       | Erklärungen,\  |                                         |                           |
+|                                  |                                       | Adaptivität    |                                         |                           |
++----------------------------------+---------------------------------------+----------------+-----------------------------------------+---------------------------+
+
+\newpage
+
+## Relevante Prompt-Patterns für Fehlererklärungen
+
++---------------------+----------------------------------------------------+------------------------------------------------------------------------+
+| **Pattern**         | **Beschreibung**                                   | **Anwendung in CASGPT**                                                |
++=====================+====================================================+========================================================================+
+| Persona Pattern     | Definition einer spezifischen Rolle für das LLM    | "Du bist ein Experte für Fehlererklärung in Cloud-Deployment-Systemen" |
++---------------------+----------------------------------------------------+------------------------------------------------------------------------+
+| Template Pattern    | Vorgabe einer spezifischen Ausgabestruktur         | Strukturierung der Erklärung in Ursache, Auswirkung, Lösung            |
++---------------------+----------------------------------------------------+------------------------------------------------------------------------+
+| Context Enhancement | Anreicherung mit domänenspezifischem Wissen        | Integration von Systemwissen über CAS-Komponenten                      |
++---------------------+----------------------------------------------------+------------------------------------------------------------------------+
+| Cognitive Verifier  | Aufforderung zur Verifizierung der eigenen Antwort | Selbstprüfung zur Reduktion von Halluzinationen                        |
++---------------------+----------------------------------------------------+------------------------------------------------------------------------+
+| Reflection Pattern  | Explizite Aufforderung zur Selbstreflexion         | Erkennung von Unsicherheiten in der Erklärung                          |
++---------------------+----------------------------------------------------+------------------------------------------------------------------------+
+| Chain-of-Thought    | Aufforderung zu schrittweisem Denken               | Verbesserung der Reasoning-Fähigkeiten des LLM                         |
++---------------------+----------------------------------------------------+------------------------------------------------------------------------+
+
+\newpage
+
+## Kernkonzepte selbstlernender Systeme für CASGPT
+
++-------------------+------------------------------------------------------------------+--------------------------+------------------------------------------+
+| **Konzept**       | **Beschreibung**                                                 | **Relevanz für CASGPT**  | **Literatur**                            |
++===================+==================================================================+==========================+==========================================+
+| MAPE-K Loop       | Monitor-Analyze-Plan-Execute-Knowledge-Zyklus für Selbstadaption | Strukturiertes\          | Cheng et al. (2009)                      |
+|                   |                                                                  | Framework\               |                                          |
+|                   |                                                                  | für den Feed-Forward/\   |                                          |
+|                   |                                                                  | Feed-Backward-\          |                                          |
+|                   |                                                                  | Kreislauf                |                                          |
++-------------------+------------------------------------------------------------------+--------------------------+------------------------------------------+
+| Feedback-\        | Systematische Rückkopplungsmechanismen                           | Grundlage für\           | Kang & Meira-Goes (2022)                 |
+| Schleifen         |                                                                  | kontinuierliches Lernen\ |                                          |
+|                   |                                                                  | aus Erfahrungen          |                                          |
++-------------------+------------------------------------------------------------------+--------------------------+------------------------------------------+
+| Human-in-the-Loop | Integration menschlichen Feedbacks in den Lernprozess            | Verbesserung\            | Wu et al. (2022); Stiennon et al. (2020) |
+|                   |                                                                  | der Erklärungs­qualität\  |                                          |
+|                   |                                                                  | durch Expertenwissen     |                                          |
++-------------------+------------------------------------------------------------------+--------------------------+------------------------------------------+
+
+\newpage
+
+## Häufigkeit der wichtigsten Codes in den Interviews
+
++-------------------------------------------+---------+---------+---------+------------+
+| **Code & Beschreibung**                   | **D**   | **M**   | **P**   | **Gesamt** |
++===========================================+=========+=========+=========+============+
+| `EX_SYSTEM_CONTEXT_NEED`:\                | 4       | 2       | 2       | **8**      |
+| Bedarf an mehr systemspezifischem Kontext |         |         |         |            |
++-------------------------------------------+---------+---------+---------+------------+
+| `EX_SPECIFICITY_LACK`:\                   | 3       | 2       | 1       | **6**      |
+| Mangel an Spezifität in Erklärungen       |         |         |         |            |
++-------------------------------------------+---------+---------+---------+------------+
+| `VALUE_POTENTIAL`:\                       | 2       | 2       | 2       | **6**      |
+| Einschätzung des zukünftigen Potenzials   |         |         |         |            |
++-------------------------------------------+---------+---------+---------+------------+
+| `USER_UNDERSTAND`:\                       | 1       | 2       | 2       | **5**      |
+| Beitrag zum Benutzerverständnis           |         |         |         |            |
++-------------------------------------------+---------+---------+---------+------------+
+| `INTEGRATION_POS`:\                       | 1       | 1       | 1       | **3**      |
+| Positive Bewertung der Integration        |         |         |         |            |
++-------------------------------------------+---------+---------+---------+------------+
+| `VALUE_CURRENT_POS`:\                     | 0       | 2       | 1       | **3**      |
+| Positive Bewertung des aktuellen Nutzens  |         |         |         |            |
++-------------------------------------------+---------+---------+---------+------------+
+| `SELF_LEARN`:\                            | 1       | 2       | 0       | **3**      |
+| Vorschläge zur Selbstlernfähigkeit        |         |         |         |            |
++-------------------------------------------+---------+---------+---------+------------+
+
+\newpage
+
+## Evolution von CASGPT - Vergleich Ist- und Zielzustand
+
++--------------+--------------------------------+------------------+----------------------------------------------+
+| **Merkmal**  | **Aktueller Zustand**          | **Zielzustand**  | **Theoretische Grundlage**                   |
++==============+================================+==================+==============================================+
+| Kontext-\    | Generische Erklärungen         | Spezifische\     | Wang et al. (2023); Kumar et al. (2025)      |
+| sensitivität |                                | Erklärungen mit\ |                                              |
+|              |                                | Systemkontext    |                                              |
++--------------+--------------------------------+------------------+----------------------------------------------+
+| Adaptivität  | Statische Prompt-Konfiguration | Kontinu-\        | Ouyang et al. (2022); Stiennon et al. (2020) |
+|              |                                | ierliche\        |                                              |
+|              |                                | Verbesserung\    |                                              |
+|              |                                | durch Feedback   |                                              |
++--------------+--------------------------------+------------------+----------------------------------------------+
+| Operations-\ | Reaktiv: Nach Fehlerauftreten  | Proaktiv:\       | Ahmed et al. (2023); Chen et al. (2023)      |
+| modus        |                                | Vorhersage\      |                                              |
+|              |                                | und Vermeidung   |                                              |
++--------------+--------------------------------+------------------+----------------------------------------------+
+| Inter-\      | Einmalige Erklärung            | Dialog-basierte\ | Wu et al. (2022)                             |
+| aktivität    |                                | Interaktion      |                                              |
++--------------+--------------------------------+------------------+----------------------------------------------+
+| Lernfähig-\  | Kein Lernen aus Erfahrung      | Systematisches\  | Li et al. (2021); Wong et al. (2022)         |
+| keit         |                                | Lernen\          |                                              |
+|              |                                | aus Feedback     |                                              |
++--------------+--------------------------------+------------------+----------------------------------------------+
+
+\newpage
+
+## Prompt Konfiguration Code
+
+Die ganze Datei `prompt_config.py` ist im digitalen Anhang zu finden.
+
+``` python
+# ...
+    def _initialize_system_prompt(self) -> str:
+        return """You are an expert at explaining technical errors 
+                  from Deutsche Telekom's deployment infrastructure.
+            Focus on providing clear, actionable explanations that:
+            1. Accurately identify whether it's a system or 
+            user-related issue.
+            2. Explain technical concepts in accessible language.
+            3. Describe practical impacts on the deployment process.
+
+            When explaining errors:
+            - Be specific rather than generic, BUT if the error is 
+            truly unknown, provide GENERAL guidance.
+            - Use technical terms appropriately but explain their 
+            meaning.
+            - Keep explanations focused and relevant to the 
+            deployment context.
+            - Consider these potential keywords: {keywords}
+            - Identify and explain any specific components, services, 
+            or technologies mentioned in the error message.
+            - Explain the meaning of any HTTP status codes 
+            in the context of the error.
+            - Provide potential causes for THIS SPECIFIC error, 
+            not just general causes for the category.
+            - If the error message suggests a solution 
+            (e.g., "retrying"), explain that suggestion.
+
+            IF THE ERROR CATEGORY IS 'General':
+            - Acknowledge that the error is not in a specific 
+            known category.
+            - STILL try to extract useful information from the 
+            error message:
+                - Are there any recognizable keywords 
+                (e.g., "database," "connection," "timeout")?
+                - Are there any error codes (e.g., "503," "404")?
+                - Is there any mention of specific files, paths, 
+                or URLs?
+            - Based on the extracted information, provide the 
+            MOST LIKELY causes and potential troubleshooting steps.
+            - Suggest general troubleshooting steps that are 
+            ALWAYS helpful:
+                - Check network connectivity.
+                - Verify service status.
+                - Check recent logs.
+                - Consult relevant documentation.
+            - Clearly state that further investigation may 
+            be needed if the general guidance doesn't 
+            resolve the issue.
+
+            Your goal is to help users understand what went wrong 
+            and its implications for the deployment process, 
+            EVEN if the error is unfamiliar."""
+
+    def _initialize_response_templates(self) -> Dict[str, str]:
+        templates = {
+            "standard": """Analyze this error from Deutsche 
+                           Telekom's deployment infrastructure:
+            ERROR TYPE: {error_type}
+            CONTEXT: {context}
+            ERROR MESSAGE:
+            {error_message}
+
+            EXPLANATION:
+            [Provide a technical analysis focusing on:
+            - Root cause identification
+            - Specific component or service affected
+            - Technical process that failed]
+
+            IMPACT:
+            [Describe:
+            - Immediate system effects
+            - Process disruption
+            - Required actions]""",
+
+            "with_quick_fix": """Analyze this {category} error:
+            ERROR TYPE:
+            {error_type}: {category_name} Issue
+            EXPLANATION:
+            [Explain the error in clear technical terms, 
+            considering this context: {context}]
+            IMPACT:
+            [Describe the practical effect on the deployment 
+            environment and any potential risks]
+            QUICK FIX:
+            [Provide one simple, immediate action the user 
+            can take to address this issue]
+            Keep the explanation concise but informative. 
+            Focus on clarity and practical implications.""",
+
+            "user_error": """Analyze this {category} error:
+            ERROR TYPE:
+            {error_type}: {category_name} Issue
+            EXPLANATION:
+            [Explain the error in clear technical terms, 
+            considering this context: {context}]
+            IMPACT:
+            [Describe the practical effect on the 
+            deployment environment]
+            USER ACTIONS:
+            {user_actions}
+            SUPPORT INFORMATION:
+            {support_info}
+            Keep the explanation concise but informative. 
+            Focus on actionable steps the user can take."""
+        }
+        return templates
+```
+
+\newpage
+
+## Client Creation Code
+
+Die ganze Datei `error_explanation_handler.py` ist im digitalen Anhang zu finden.
+
+``` python
+# ...
+class ErrorRequest(BaseModel):
+    error_message: str = Field(..., min_length=1, max_length=1000)
+
+class ExplanationResponse(BaseModel):
+    explanation: str
+    categories: list[str] = Field(default_factory=list)
+    components: list[str] = Field(default_factory=list)
+
+class ErrorExplanationHandler:
+    def __init__(self):
+        self.vault = VaultAccess()
+        self.ai_service = self._initialize_ai_service()
+        self.prompt_config = PromptConfig()
+
+    def _initialize_ai_service(self) -> AIService:
+        config = self._load_ai_service_config()
+        return AzureAIService(config)
+
+    def _load_ai_service_config(self) -> AIServiceConfig:
+        openai_key = self.vault.get_value(
+            self.vault.cas_kv_engine,
+            f"{self.vault.cas_default_path}/utils",
+            "AZURE_OPENAI_KEY"
+        )
+        if not openai_key:
+            raise ValueError("AI service key not found in vault")
+
+        return AIServiceConfig(
+            endpoint=os.getenv('AZURE_OPENAI_ENDPOINT', '').strip(),
+            api_key=openai_key,
+            deployment_name=os.getenv('DEPLOYMENT_NAME', '').strip(),
+            max_tokens=int(os.getenv('MAX_TOKENS', '200')),
+            temperature=float(os.getenv('TEMPERATURE', '0.7')),
+            proxy_url=os.getenv('PROXY_URL'),
+            request_timeout=float(os.getenv('REQUEST_TIMEOUT', 
+                                            '30.0'))
+        )
+
+    async def get_error_explanation(self, error_request: 
+                                    ErrorRequest) -> 
+                                    ExplanationResponse:
+        try:
+            explanation = await self._get_ai_explanation
+                                (error_request.error_message)
+            categories = self.prompt_config.identify_error_categories
+                                        (error_request.error_message)
+
+            return ExplanationResponse(
+                explanation=explanation,
+                categories=[cat.name for cat in categories],
+                components=self._extract_related_components
+                                (explanation)
+            )
+ # ...
+```
+
+\newpage
+
+## Interviewnotizen
+
+1\. \*\*D:\*\*
+
+Wer bist du bzw. welche Rolle hast du im CAS Projekt /
+welche Jobbeschreibung hast du?
+
+- DevOps Engineer (macht kein DevOps) → ist Backend Engineer
+ - kümmert sich größtenteils um einen Orchestrator im
+Kubernetes Cloud Umfeld für CNFs
+ - deployt automatisch das System, was die Blueboxen
+automatisch installiert
+
+Wie bewertest du die Qualität der KI-generierten Erklärungen?
+
+- zu generisch, es wird das erklärt, was da steht aber
+klipp und klare Antworten wären besser
+
+Kannst du ein konkretes Beispiel für eine besonders gelungene /
+weniger gelungene Erklärung nennen?
+
+- …Object of type Exception is not JSON serializable
+
+Wie gut integriert sich das Feature in den bestehenden Workflow?
+
+- vorausgesetzt die BlueBoxen benutzen das ProgressView
+→ super Integration
+ - nicht zu hohe Latenz zwischen der Antwort
+ - im besten Fall gibt es nicht zu viele Fehler und
+wenn man so ca. 5 Sekunden wartet ist’s okay
+
+Gibt es Verbesserungspotenzial bei der Integration?
+
+- Ja, die System Knowledge fehlt,
+die man in die Prompts einbauen sollte
+- mehr Custom Knowledge
+
+Wie schätzt du den Gesamtnutzen des Features ein?
+
+- jetzt grade: noch nicht allzu hoch
+ - mit Verbesserung besser
+ - sehr viel Potenzial → tatsächliche Zeitersparnis
+auf unserer Seite + BlueBox Seite
+
+Welche Verbesserungsvorschläge hast du für die Weiterentwicklung?
+
+- mehr Systemknowledge + Pormpts mit mehr Informationen füllen
+- User oder Systemfehler kategorisieren
+ - du kannst dafür nichts, das betroffene System kann sich nicht
+zu dem System connecten, Tipp: connectivity issues können
+durch retry vermieden werden
+- vielleicht noch nicht jetzt, aber wenn die Prompts mit
+Systeminfo gefüllt werden würden, würden die Kunden Infos bekommen,
+wie die Services funktionieren, besser als sie jemals wissen könnten
+ - Hilfe bekommen ohne Dokumentation zu lesen
+(die es nicht gibt :) )
+ - wir hätten die Möglichkeit die Fehler zu erkennen
+→ Prompts umschreiben um zusätzliche Informationen
+mit reinzuschreiben
+ - wenn Fehler bei einer anderen BlueBox war, direkt in Prompt
+mit schreiben: das war übrigens der Fix
+→ BlueBox kann das selber machen
+ - Spart Zeit → weniger Supportaufwand bei selbem Fehler
+
+Gibt es noch Aspekte, die wir nicht besprochen haben?
+
+- Datenschutz abgedeckt, keine User spezifischen Sachen
+
+Gewünschte Fehlererklärung & Kontext, wie die Log Messages
+erstellt werden:
+
+- unhandled expection was caught → müsste übergeben werden,
+kommt aus unseren Services → viel genauer: wir haben 200 erwartet,
+in den Klammern, was wir bekommen haben,
+nur eine Log Message auswerten
+- das in den Klammern, was ich tatsächlich bekommen habe,
+die Erklärung dass unser Service einen anderen Service
+kontaktiert hat, der mit dem Fehlercode
+“Internal server error: object of type …)
+ - unsere Services schreiben Logs mit den ähnlichen / gleichen ids
+→ Service der das wiederbekommt -\> der eine Service hat den
+anderen kontaktiert und hat den Fehler bekommen
+- an unhandled exepception was caught → von den Systeminfos, was
+unsere Services produzieren / schreiben → die Services sind in
+folgende Fehler gelaufen
+1. \*\*M:\*\*
+
+Wer bist du bzw. welche Rolle hast du im CAS Projekt /
+welche Jobbeschreibung hast du?
+
+- Software Engineer - Full-Stack: Frontend, Backend,
+vor allem Frontend
+- alles was mit dem CAS Portal zutun hat
+
+Wie bewertest du die Qualität der KI-generierten Erklärungen?
+Kannst du ein konkretes Beispiel für eine besonders gelungene /
+weniger gelungene Erklärung nennen?
+
+- doch schon einiges an Hilfe, nicht jeder User weiß, was ein DSO ist
+- wenn ich persönlich erklären würde, würde ich auch vorlesen und
+darauf erklären
+ - doppelt da stehen ist nicht kritisch aber garkeine neue Info,
+ist schade
+ - manchmal lässt es sich nicht verhindern,
+teilweise recht selbstaussagend
+- Qualität ist für den Datenumfang gut, man merkt, die KI versteht,
+worum es geht, wahrscheinlich weil System prompt gut gesgnined ist
+ - verbessern mit mehr Daten geht immer, Grundidee ist gut,
+absolut ausreichend
+ - DSO erklärt und sowas anderes reicht einem User der
+nicht technisch versiert ist, zu verstehen worum es geht
+
+Inwieweit unterstützt das Feature den Deployment-Prozess?
+
+- den Prozess an sich nicht, aber den User, insoweit,
+dass der User besser versteht, was der Fehler ist und evtl.
+vermeiden wir einfache Fehler zu großen Problemen werden
+ - User versteht “ah ok war keine Verbindung zu wo auch immer”
+ - Open Telekom Cloud nicht erreichbar → Systemfehler
+
+Wie gut integriert sich das Feature in den bestehenden Workflow?
+
+- perfekt, den Button finde ich gut, aufklappbar,
+besser geht fast garnicht, genau richtig
+
+Wie beurteilst du die \*Qualität der Erklärungen im Hinblick auf
+technische Korrektheit und Vollständigkeit\*
+
+- damit sie besser wird, muss man mehr Daten einfügen,
+mehr Daten = bessere Antworten
+
+Wie schätzt du den Gesamtnutzen des Features ein?
+
+- aktuell: viel Wiederholung, manchmal reicht dem User,
+dass er sieht, der error ist erklärbar
+→ gutes Gewissen, Transparenz wird geschaffen
+ - Qualität der Antworten kommt mit der Skalierung
+ - aktuell ein nice to have
+ - und man kann sagen “man nutzt AI”: alleine dafür gut
+
+Welche Verbesserungsvorschläge hast du für die Weiterentwicklung?
+
+- selbstlernend immer sinnvoll → Antwortsqualität bewerten,
+anstatt dass es sich selbst mit schwachen Antworten füttert
+ - wenn System Knowledge (Wiki Dump) dem Model gegeben wird,
+hat es mehr Ahnung worum es geht
+ - Fehlermeldungen sammeln, bestmögliche Antwort
+auswählen vom Model bewerten
+ - Fíne-Tuning
+- mehr Daten, Struktur finde ich gut,
+Weiternetwicklung auf andere Sachen
+ - Logging Seite, in Zukunft kommt bestimmt mehr dazu
+ - guter Einstieg
+ - man weiß, wie man ans Modell kommt
+
+Gibt es noch Aspekte, die wir nicht besprochen haben?
+
+- wie ist es aktuell, du nimmst die error message
+direkt von der Seite?
+ - könnte man da cross scripten?
+- Warum ist das ganze sinnvoll mit Ai zu lösen?
+ - immer andere Fehlermeldung
+ - Erweiterungspotenzial rechtfertigt das
+1. \*\*P:\*\*
+
+Wer bist du bzw. welche Rolle hast du im CAS Projekt /
+welche Jobbeschreibung hast du?
+
+- im CAS Projekt Squadlead im CAS Team
+→ Product Owner für Plattformlösung
+ - verschiedene Automatisierungsprojekte innerhalb Telekom T-VM
+ - generische Lösung Plattform für verschiedene Kundenprojekte
+ - Verantwortung für das ganze Team &
+Plattformlösung & Kundenprojekte aufteilen
+
+Wie bewertest du die Qualität der KI-generierten Erklärungen?
+Kannst du ein konkretes Beispiel für eine besonders gelungene /
+weniger gelungene Erklärung nennen?
+
+- von dem was bisher gesehen: bisher unterschiedlich, erwartbar
+- gefühl, dass die Antworten je genereller das Problem,
+desto besser werden die Antworten
+ - beispiel: string value im yml file nicht geparsed \
+werden konnte
+→ fehler: text sollte verwendet werden
+ - System kann das ganz gut
+ - Infrastruktur zugeschnittene Dinge: schwieriger, \
+Meta Daten nicht
+ - unterschiedlich aber erwartbar
+
+Inwieweit unterstützt das Feature den Deployment-Prozess?
+
+- am Ende des Prozesses, Benutzer kann in der Progress view sehen,
+welche schritte abgehandelt werden in der zeit, sieht die Fehler
+ - an dem Punkt setzt das feature an, Nutzer die nicht
+so tief technologisches verständnis haben
+ - sehr technische Fehlermeldugnen können trotzdem
+angezeigt werden + erklärt werden
+ - Qualität ganz gut unterwegs, manchmal geht es dazu
+Zusatzinformationen zu geben
+ - manchmal in html / xml code eingebettet
+ - Button click → Fehler wird auseinander genommen
+ - \*\*Wertschöpfung: für Menschen komisch wirkenden
+Fehler in natürliche Sprache übersetzten
+→ einleuchtend und gern angucken\*\*
+ - User hat oft keine Lust,
+sich das alles anzuschauen
+
+Wie gut integriert sich das Feature in den bestehenden Workflow?
+
+- eigentlich genauso integriert, funktioniert genauso wie ich mir
+so ein Feature wünschen würde
+ - ich hab eine Fehlermeldung, klicke drauf und wird erklärt
+ - wüsste nicht, was man das anders machen sollte, \
+Integration gelungen
+- Integration absolut sinnvoll
+
+Gibt es Verbesserungspotenzial bei der Integration?
+
+- Content: mehr Informationen geben auf spezielle Infrastruktur
+ - manchmal Nachrichten abgeschnitten
+(LLM zu kleine Token Größe eingestellt)
+→ da sollte man nacharbeiten
+
+Inwiefern erfüllt das Feature deine ursprüngliche Vision?
+Welche Aspekte haben dich positiv/negativ überrascht?
+
+- positiv gestimmt: so funktioniert, wie vorgestellt
+ - hab das Gefühl, dass die Idee mit den verfügbaren Mitteln
+gut umgesetzt wurde
+ - nicht positiv überrascht → positiv gestimmt
+- positiv überrascht: wie gut diese generellen Modelle auf diese
+speziellen tasks performen
+ - wohl bewusst, das Meta Informationen zugegeben werden\
+müssen um das zu verbessern
+ - ohne besonderes training, einige dinge dabei, \
+die gut funktionieren
+- positiv überrascht: wie gut man über Prompting \
+die Antworten strukturieren kann
+ - Prompts so geschrieben, dass sie verschieden strukturiert sind
+ - entsprechende Strukturen, gleichbleibende Notation /
+Struktur der Antworten
+
+Wo siehst du das größte Potenzial für die Weiterentwicklung?
+
+- vorher Besprochen: content
+
+Wie schätzt du den Gesamtnutzen des Features ein?
+
+- Basierend auf den technischen Möglichkeiten des Nutzers,
+durchaus komplexe Fehlermeldungen verständlich zu erklären
+→ damit auch, das größere Ziel dahinter:
+ - Support Anfragen an Plattformbetreiber reduzieren
+→ dem Nutzer zu zeigen, wer am ende für ein Fehler \
+verantwortlich ist
+ - z.B. in einer Parameter config kann ich den Fehler lösen \
+(String erwartet)
+ - für uns reduzieren wir als Plattformbetreiber die \
+Supportanfragen
+
+Welche Verbesserungsvorschläge hast du für die Weiterentwicklung?
+
+- Weiterentwicklung: interaktiver: z.B., in die Erklärung \
+ein Chatfenster
+→ KI nochmal Nachfragen stellen
+ - man klappt das auf, kommt in Chatfenster und kann fragen,
+die Komponente cicd solution, was ist das überhaupt?
+ - wem gehört das cas1ref cluster local?
+ - um Antworten zu kriegen, für jeden User ist es anders,
+warum er die KI Erklärung haben will
+ - der 1. User hat keine lust die Nachricht zu lesen \
+und zu verstehen
+ - der 2. User will verstehen, was überhaupt json ist / \
+error code 500
+
+Gibt es noch Aspekte, die wir nicht besprochen haben?
+
+- unterschiedliche Modelle, super verschiedene Modelle,
+wir sind leider beschränkt was uns zur verfügung steht,
+über Tardis Integration nur Mistral / Llama zur Verfügung
+ - evaluieren, inwieweit die Modelle, die man hat, performen \
+→ bestes wählen
+ - ggf. neu evaluieren
+
+Das Codebook für das Verschlagworten ist im digitalen Anhang zu finden.
+
+# Quellen
+
+1.  Abdallah, N., Mallouli, S., Sherif, I., Bahri, H., & Al-Fuqaha, A. (2024). Cloud Network Anomaly Detection Using Machine and Deep Learning Techniques— Recent Research Advancements.
+
+2.  Agrawal, V. (2016). Syntax errors identification from compiler error messages using ML techniques.
+
+3.  Ahmed, A., Sethi, S., Agarwal, P., Hossain, M. S., Azeem, A., & Gadekallu, T. R. (2023). Recommending Root-Cause and Mitigation Steps for Cloud Incidents using Large Language Models.
+
+4.  Alibakhsh, S. (2023). Challenges of Integrating LLMs Like ChatGPT with Enterprise Software and Solving it with Object Mess.
+
+5.  Bae, H., Seo, J., Kim, H., Kim, S., Park, J., & Kim, H. (2024). Enhancing Software Code Vulnerability Detection Using GPT-4o and Claude-3.5 Sonnet: A Study on Prompt Engineering.
+
+6.  Brown, T. B., Mann, B., Ryder, N., Subbiah, M., Kaplan, J., Dhariwal, P., ... & Amodei, D. (2020). Language Models are Few-Shot Learners.
+
+7.  Chandramouli, R. (2022). Implementation of DevSecOps for a microservices-based application with service mesh.
+
+8.  Chen, Y., Yao, S., Yu, F., Wang, Y., Chen, J., Shen, B., ... & Zhou, P. (2023). Automatic Root Cause Analysis via Large Language Models for Cloud Incidents.
+
+9.  Chen, Y., Zehui, D., Sun, S., Chen, J., Yu, F., Jiang, Z., ... & Zhou, P. (2025). AIOpsLab: A Holistic Framework to Evaluate AI Agents for Enabling Autonomous Clouds.
+
+10. Cheng, B. H., de Lemos, R., Giese, H., Inverardi, P., Magee, J., Andersson, J., ... & Whittle, J. (2009). Software Engineering for Self-Adaptive Systems: A Research Roadmap.
+
+11. Cheng, X., Cheng, X., & Xu, B. (2024). Prompt Sapper: A LLM-Empowered Production Tool for Building AI Chains.
+
+12. Chukwuemeka Nwachukwu, C., Agboneni-Mordi, C. A., Igbinovia, P. A., Aniete, A. A., & Madu, C. A. (2024). AI-driven anomaly detection in cloud computing environments.
+
+13. Dash, S. (2024). Zero-Trust Architecture (ZTA): Designing an AI-Powered Cloud Security Framework for LLMs' Black Box.
+
+14. De Lemos, R., Giese, H., Müller, H. A., Shaw, M., Andersson, J., Litoiu, M., ... & Weyns, D. (2013). Software Engineering for Self-Adaptive Systems: A Second Research Roadmap.
+
+15. De Lemos, R., Garlan, D., Ghezzi, C., Giese, H., Andersson, J., Litoiu, M., ... & Schmerl, B. (2017). Software Engineering for Self-Adaptive Systems: Research Challenges in the Provision of Assurances.
+
+16. Detrois, M., Cito, J., Renggli, C., Agarwal, M., Karlaš, B., & Zhang, C. Automated processing of monitoring data for proactive root cause analysis in service-based systems.
+
+17. Devaraju, B. M. (2024). Architecting Scalable LLM-Powered Employee Engagement Systems: A Multi-Modal Framework for Enterprise Application Integration.
+
+18. Dhoopati, K. S. (2023). Enhancing Enterprise Application Integration through Artificial Intelligence and Machine Learning.
+
+19. Engström, E., Engström, J., Björn, L., & Pettersson, O. (2020). How software engineering research aligns with design science: a review.
+
+20. Happe, C., & Cito, J. (2025). Can LLMs Hack Enterprise Networks: Autonomous Assumed Breach Penetration-Testing Active Directory Networks.
+
+21. Hevner, A., & Chatterjee, S. (2010). Design Science Research in Information Systems.
+
+22. Hevner, A. R. (2007). A Three Cycle View of Design Science Research.
+
+23. Hevner, A. R., March, S. T., Park, J., & Ram, S. (2004). Design Science in Information Systems Research.
+
+24. Hu, F., Zhou, J., Ng, Y. P., & Chen, C. (2021). Pipeline Parallelism for Inference on Heterogeneous Edge Computing.
+
+25. Hussain, M. W., & Zaidi, U. S. (2024). AdaBoost Ensemble Approach with Weak Classifiers for Gear Fault Diagnosis and Prognosis in DC Motors.
+
+26. Kang, D., & Meira-Goes, J. (2022). Requirements Engineering for Feedback Loops in Software-Intensive Systems.
+
+27. Krishna, L. K., Sankaralingam, S., & Jayaram, S. (2023). An Enhanced Time Series Analysis to Improve the Performance of 5G Communication Systems.
+
+28. Kumar, S., Singh, V., Laxman, S., & Mishra, D. (2025). A multivariate transformer-based monitor-analyze-plan-execute (MAPE) autoscaling framework for dynamic cloud resources.
+
+29. Laigner, R., Kalinowski, M., Diniz, S., Barros, L., Cassino, C., Lins, M., ... & Lifschitz, S. (2021). Data management in microservices: state of the practice, challenges, and research directions.
+
+30. Li, Y., Luo, D., Hu, C., Zhang, Z., Wang, J., & Lu, S. (2024). Interpretable Analysis of Production GPU Clusters Monitoring Data via Association Rule Mining.
+
+31. Mao, X., Tang, J., Qiu, W., Liu, Y., Wang, X., & Li, Z. (2024). Advancing Graph Representation Learning with Large Language Models: A Comprehensive Survey of Technical Approaches.
+
+32. Mayring, P. (2014). Qualitative content analysis: theoretical foundation, basic procedures and software solution.
+
+33. Mosqueira-Rey, E., Hernández-Pereira, E., & Alonso-Ríos, D. (2023). Human-in-the-loop machine learning: a state of the art.
+
+34. Orgad, E., Maharshak, Y., Jain, S., Izsak, P., Gadre, S. Y., Pang, R. Y., ... & Hassid, Y. (2024). LLMs Know More Than They Show: On the Intrinsic Representation of LLM Hallucinations.
+
+35. Ouyang, L., Wu, J., Jiang, X., Almeida, D., Wainwright, C. L., Mishkin, P., ... & Christiano, P. (2022). Training language models to follow instructions with human feedback.
+
+36. Oyekunle Claudius Oyeniran, O. C., Harapus, R., Adesola Akinade, B., & Nwangene, C. O. (2024). Microservices architecture in cloud-native applications: Design patterns and scalability.
+
+37. Peffers, K., Tuunanen, T., Rothenberger, M. A., & Chatterjee, S. (2007). A Design Science Research Methodology for Information Systems Research.
+
+38. Perron, J., Fernandez, A., Arbesfeld, E., Mao, H., Muennighoff, N., Golowich, N., ... & Nguyen, A. (2025). Demystifying Application Programming Interfaces (APIs): Unlocking the Power of Large Language Models.
+
+39. Ramamoorthi, K. Machine Learning Models for Anomaly Detection in Microservices.
+
+40. Rizvi, S. Z. H., Javed, A. R., Ahmed, S., Al-Khateeb, H., & Malik, S. U. R. (2024). LSTM-Based Autoencoder with Maximal Overlap Discrete Wavelet Transforms Using Lamb Wave for Anomaly Detection.
+
+41. Sain, M., Matyukhina, A., Rožanec, J. M., & Mladenić, D. (2024). Leveraging ChatGPT to Enhance Debugging: Evaluating AI-Driven Solutions in Software Development.
+
+42. Santolucito, M., Zhai, E., Dhodapkar, R., Shim, A., & Piskac, R. (2017). Synthesizing configuration file specifications with association rule learning.
+
+43. Saurabh Ashwinikumar Dave, B. D., Surya, J., & Kumar, R. (2024). Scalable Microservices for Cloud Based Distributed Systems.
+
+44. Sein, M. K., Henfridsson, O., Purao, S., Rossi, M., & Lindgren, R. (2011). Action Design Research.
+
+45. Senior Lead Software Engineer, Richmond, VA, USA, & Balakrishna, A. (2023). Optimizing Observability: A Deep Dive into AWS Lambda Logging.
+
+46. Stiennon, N., Ouyang, L., Wu, J., Ziegler, D. M., Lowe, R., Voss, C., ... & Christiano, P. Learning to summarize from human feedback.
+
+47. Talukdar, W., & Biswas, A. (2023). Improving Large Language Model (LLM) fidelity through context-aware grounding: A systematic approach.
+
+48. Tamanampudi, V. M. (2024). End-to-End ML-Driven Feedback Loops in DevOps Pipelines.
+
+49. Tarun Kaniganti, T., & Naga Sai Kiran, N. S. (2021). Architecting Resilient REST APIs: Leveraging AWS, AI, and Microservices for Scalable Data Science Applications.
+
+50. Törnberg, P. (2024). Best Practices for Text Annotation with Large Language Models.
+
+51. Tzanettis, G., Kavoussanakis, K., & Piotter, S. (2022). Data Fusion of Observability Signals for Assisting Orchestration of Distributed Applications.
+
+52. Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., ... & Polosukhin, I. (2017). Attention is All You Need.
+
+53. Vatsal, L., & Dubey, M. (2024). A Survey of Prompt Engineering Methods in Large Language Models for Different NLP Tasks.
+
+54. Venable, J., Pries-Heje, J., & Baskerville, R. (2016). FEDS: a Framework for Evaluation in Design Science Research.
+
+55. Vorobyov, N., Ustinova, E., Koriagin, F., & Noskov, A. (2021). Parallel Version of the Framework for Clustering Error Messages.
+
+56. Wang, D., Wei, H., Nayel, M., & An, Y. (2022). Intelligent Software Service Configuration Technology Based on Association Mining.
+
+57. Wang, H., Zhang, M., Zhang, Z., Agarwal, A., Zhao, S., Huang, P., ... & Wong, W. E. (2023). Transformer Fault Diagnosis Method Based on Incomplete Data and TPE-XGBoost.
+
+58. Wang, J., Wei, J., He, H., Tian, C., & Chen, H. (2024). Research on Rolling Bearing Fault Diagnosis Method Based on ECA-MRANet.
+
+59. Wang, P., Peng, Z., Ding, Z., Zhang, B., Jiang, H., & Wang, Y. (2023). Self-Consistency Improves Chain of Thought Reasoning in Language Models.
+
+60. Wei, J., Wang, X., Schuurmans, D., Bosma, M., Chi, E. H., Le, Q., & Zhou, D. Chain-of-Thought Prompting Elicits Reasoning in Large Language Models.
+
+61. Weyns, D. (2019). Software Engineering for Self-adaptive Systems.
+
+62. White, J., Bommasani, R., & Gruver, N. (2023). A Prompt Pattern Catalog to Enhance Prompt Engineering with ChatGPT.
+
+63. Wong, S., Chua, Z. E., & Xumin, L. (2022). Self-Adaptive Systems: A Systematic Literature Review Across Categories and Domains.
+
+64. Wu, T., Jiang, L., Zheng, X., Ripple, A., Boucher, N., Shao, M. S., ... & Ma, S. (2022). A Survey of Human-in-the-loop for Machine Learning.
+
+65. Wu, Z., Jiang, S., Liu, Q., & Wang, H. (2024). Large Language Models Can Self-Correct with Key Condition Verification.
+
+66. Yasmin, A., Lano, K., & Alrajeh, D. (2020). A First Look at the Deprecation of RESTful APIs: An Empirical Study.
+
+67. Zhang, H., Liu, J., Wang, K., Zhong, W., Wang, A., Ma, M., ... & Chen, Y. (2024). Automated Root Causing of Cloud Incidents using In-Context Learning with GPT-4.
+
+68. Zhang, Y., Li, X., Bing, L., Wang, X., Shi, S., Yan, R., ... & Zhu, W. (2024). Comparison of Prompt Engineering and Fine-Tuning Strategies in Large Language Models in the Classification.
+
+69. Zhao, S., Zhu, X., Zhao, H., Jin, Y., Cui, Y., & Sun, C. (2024). CHASE: A Causal Heterogeneous Graph based Framework for Root Cause Analysis in Multimodal Microservices.
+
+# KI Tools zur Hilfe
+
+Anthropic. (2025). Claude 3.5 Sonnet \[LLM\]. (<https://claude.ai>)
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+
+| Prompts                                                                                                                                             | Date accessed   |
++=====================================================================================================================================================+=================+
+| "Analysiere bitte die folgenden Fehlermeldungen, welchen Kontext brauchst du um diese besser beantworten zu können? (Beispiel Fehlermeldungen ...)" | 22.01.2025      |
++-----------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+
+| "Erstelle eine Python-Klasse für ErrorCategory mit pattern matching und Gewichtung"                                                                 | 24.01.2025      |
++-----------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+
+| "Wie implementiert man den Azure OpenAI Client für GPT-4 in Python in mit async Funktionen?"                                                        | 26.01.2025      |
++-----------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+
+| "Konzept für State Management von einem Label in Angular, Button regelt das State Management des Labels?"                                           | 30.01.2025      |
++-----------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+
+| "Wie verbindet man Frontend mit Backend über HTTP für AzureOpenAI API-Anfragen?"                                                                    | 01.02.2025      |
++-----------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+
+| "Wie extrahiert man Keywords aus Fehlermeldungen mit RegEx für bessere LLM-Prompts?"                                                                | 03.02.2025      |
++-----------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+
+| "Wie implementiere ich adaptive Response Templates je nach Fehlertyp (System vs. User Errors)"                                                      | 05.02.2025      |
++-----------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+
+| "Wie strukturiert man einen System Prompt für technische Fehlererklärungen in natürlicher Sprache knapp aber detailliert erklärt?"                  | 07.02.2025      |
++-----------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+
+| "Strategien für Error Pattern Matching mit gewichteten Regex-Mustern"                                                                               | 09.02.2025      |
++-----------------------------------------------------------------------------------------------------------------------------------------------------+-----------------+

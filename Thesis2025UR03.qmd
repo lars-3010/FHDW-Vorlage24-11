@@ -1,0 +1,84 @@
+# Methodisches Vorgehen
+
+## Forschungsansatz: Design Science Research
+
+Um die in der Hauptforschungsfrage adressierte Evolution zu einem selbstlernenden System methodisch fundiert zu untersuchen, wird Design Science Research (DSR) als übergeordneter Forschungsrahmen gewählt. DSR ermöglicht die Entwicklung und Evaluation innovativer IT-Artefakte in einem iterativen Prozess (Hevner et al., 2004; Peffers et al., 2007). Dieser iterative Charakter ist von zentraler Bedeutung für die Umsetzung des Feed-Forward/Feed-Backward-Konzepts, das den Kern dieser Arbeit bildet.
+
+Die methodische Verankerung in DSR spiegelt sich in der Integration des Feed-Forward/Feed-Backward-Ansatzes in die drei DSR-Zyklen wider (Tabelle 1; Hevner, 2007):
+
+| **DSR-Zyklus** | **Feed-Forward** | **Feed-Backward** |
+|------------------------|------------------------|------------------------|
+| Relevanz-Zyklus | Identifikation des Problems unverständlicher Fehlermeldungen | Überprüfung der Erfüllung der identifizierten Anforderungen |
+| Design-Zyklus | Entwicklung des CASGPT-Systems | Iterative Verbesserung basierend auf Evaluationsergebnissen |
+| Rigor-Zyklus | Anwendung vorhandenen Wissens zu LLMs | Beitrag neuer Erkenntnisse zur LLM-Integration |
+
+: Integration von DSR-Zyklen und Feed-Forward/Feed-Backward-Ansatz
+
+Die Evaluation orientiert sich am Framework for Evaluation in Design Science (FEDS). Dabei wird, dem Feed-Backward-Gedanken folgend, eine formative, naturalistische Evaluierungsstrategie gewählt, um qualitative Rückmeldungen von Experten in einer realen Umgebung zu erhalten und in die Weiterentwicklung des Systems einfließen zu lassen. (Venable et al., 2016)
+
+## Forschungsdesign
+
+### Zweiphasiger Ansatz und iterativer Prozess
+
+Diese Forschung verfolgt einen zweiphasigen Ansatz, der den Feed-Forward/Feed-Backward-Kreislauf vollständig abbildet:
+
+1.  **Phase 1: Implementierung (Feed-Forward)**
+    -   Konzeption und Implementierung des CASGPT-Features basierend auf theoretischen Grundlagen
+    -   Technische Integration von LLMs, Prompt Engineering und Benutzeroberfläche
+    -   Dokumentation der implementierten Systemarchitektur und ihrer Komponenten
+2.  **Phase 2: Evolution (Feed-Backward → Feed-Forward)**
+    -   Untersuchung der Weiterentwicklungsmöglichkeiten zu einem selbstlernenden System
+    -   Basiert auf systematischer Evaluation und Feedbackanalyse
+    -   Entwicklung eines evolutionären Weiterentwicklungskonzepts für proaktive Fehlererklärung
+
+Der Entwicklungsprozess ist bewusst iterativ gestaltet, wobei Feedback aus Tests und Experteninterviews kontinuierlich in Designverbesserungen einfließt. Dieser Ansatz entspricht der Verschränkung von Entwicklung, Intervention und Evaluation im Design Science Kontext (Sein et al., 2011).
+
+## Datenerhebung und -analyse
+
+### Implementierungsdaten
+
+Die initiale Implementierung von CASGPT stützte sich auf verschiedene Datenquellen:
+
+-   Systemdokumentation und Fehlerprotokolle des CAS-Systems
+-   Expertenwissen des Entwicklungsteams
+-   Erkenntnisse aus der Forschungsliteratur zu LLMs und Prompt Engineering
+
+### Evaluierung durch Experteninterviews
+
+Als primäre Evaluierungsmethode wurden halbstrukturierte Interviews mit drei Schlüsselpersonen durchgeführt, die unterschiedliche Perspektiven auf das System repräsentieren:
+
+-   **Teamleiter (Product Owner):** Strategische Perspektive (Projektziele und Vision)
+-   **Full-Stack-Entwickler:** Technische Perspektive (Implementierung und Integration)
+-   **DevOps Engineer:** Operative Perspektive (Systemstabilität und Fehlerbehebung)
+
+Diese multiperspektivische Herangehensweise folgt den Empfehlungen zur Planung und Durchführung von Experteninterviews in der Informationssystemforschung (Hevner et al., 2004; Engström et al., 2020).
+
+**Interviewmethodik:** Die Interviews folgten einem halbstrukturierten Format mit einem dreistufigen Aufbau:
+
+1.  **Einführende Fragen** zur Rolle und Erfahrung
+2.  **Hauptfragenblock** zu zentralen Themenbereichen (Qualität der Erklärungen, Workflow-Integration, technische Aspekte)
+3.  **Abschlussfragen** zum Gesamteindruck und zu Verbesserungsvorschlägen
+
+Dieser Ansatz ermöglichte sowohl die systematische Abdeckung der Forschungsfragen als auch die Exploration unerwarteter Einsichten. Die Interviews dauerten jeweils 45-60 Minuten und wurden protokolliert. Der vollständige Interviewleitfaden ist in Anhang A dokumentiert.
+
+### Qualitative Inhaltsanalyse
+
+Die Auswertung der Interviews erfolgte mittels qualitativer Inhaltsanalyse (Mayring, 2014), wobei ein kombiniert deduktiv-induktives Vorgehen angewandt wurde. Zunächst wurden auf Basis der Forschungsfragen und des theoretischen Rahmens deduktiv Hauptkategorien abgeleitet. In einem zweiten Schritt erfolgte die induktive Kategorienbildung aus dem Material heraus, wodurch unerwartete Einsichten und Themen identifiziert werden konnten. Diese methodische Triangulation ermöglichte sowohl die systematische Prüfung theoriegeleiteter Aspekte als auch die Entdeckung neuer, für die Evolution des Systems relevanter Erkenntnisse.
+
+Der Analyseprozess umfasste folgende Schritte:
+
+1.  **Kodierung:** Analyse der Interviewprotokolle durch systematische Zuordnung von Textstellen zu Kategorien
+2.  **Thematische Analyse:** Identifikation von Mustern, Schlüsselthemen und Beziehungen zwischen Konzepten
+3.  **Triangulation:** Vergleich und Gegenüberstellung der verschiedenen Perspektiven für ein umfassendes Bild
+
+Diese systematische Auswertung gewährleistet eine methodisch fundierte Ableitung von Erkenntnissen aus dem qualitativen Material. Die Triangulation der verschiedenen Perspektiven stärkt zusätzlich die Validität der Ergebnisse (Engström et al., 2020). Das vollständige Codebook mit Definitionen und Beispielen ist in Anhang B dokumentiert Die aus der Analyse gewonnenen Erkenntnisse bilden die Grundlage für die Konzeption des evolutionären Weiterentwicklungsansatzes für CASGPT.
+
+## Methodische Reflexion
+
+Bei der Durchführung wurden ethische Aspekte gemäß den Richtlinien der Deutschen Telekom und der DSGVO berücksichtigt. Die wesentlichen methodischen Limitationen umfassen:
+
+-   **Begrenzte Teilnehmerzahl**: Die Stichprobe von drei Experten wurde durch gezielt unterschiedliche Perspektiven (strategisch, technisch, operativ) kompensiert.
+-   **Qualitative Natur**: Die primär auf Experteneinschätzungen basierende Evaluation könnte in zukünftigen Studien durch quantitative Nutzungsdaten ergänzt werden.
+-   **Zeitlicher Rahmen**: Die Evaluation bezieht sich auf einen spezifischen Zeitpunkt und reflektiert nicht die langfristige Systemnutzung.
+
+Diese Limitationen sind für qualitative DSR-Projekte in frühen Entwicklungsphasen typisch (Hevner & Chatterjee, 2010) und werden bei der Interpretation entsprechend berücksichtigt.

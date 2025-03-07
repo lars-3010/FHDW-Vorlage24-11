@@ -8,10 +8,59 @@
 \begin{tabularx}{\textwidth}{lX}
 % 1. ----- ab hier stehen die Glossareinträge
 
-FHDW & Fachhochschule der Wirtschaft \\
-Gummy & Dies ist ein etwas längerer Glossareintrag, der eigentlich \textit{Dummy} heissen sollte, aber wegen der alphabetischen Reihenfolge anders benannt werden musste. Ob die Glossareinträge in der Datei \texttt{Glossar.tex} durch eine zusätzliche Leerzeile im Quelltext getrennt werden ist für Quarto bzw. \LaTeX{} gleichgültig. Eine zusätzliche Leerzeile könnte aber die Lesbarkeit verbessern.\\
+API & (Application Programming Interface): Definierte Schnittstelle zur Kommunikation zwischen Softwarekomponenten mit festgelegten Protokollen und Datenformaten. Ermöglicht die standardisierte Interaktion zwischen verschiedenen Systemen.\\
 
-VDI & Verein deutscher Ingenieure \\
+API-Gateway & Zentrale Komponente im Backend für die API-Kommunikation mit dem Frontend, die Authentifizierung, Routing und Sicherheitsmaßnahmen implementiert.\\
+
+ARM & (Association Rule Mining): Datamining-Technik zur Entdeckung von Beziehungen und Mustern zwischen Variablen in großen Datensätzen. ARM identifiziert Regeln der Form \textquotedblleft Wenn X, dann Y\textquotedblright{} mit Wahrscheinlichkeitsangaben. In der Fehleranalyse ermöglicht es die Erkennung von Zusammenhängen zwischen Konfigurationsparametern und auftretenden Fehlern, die für proaktive Warnungen genutzt werden können.\\
+
+Blue Box & Interner Deutsche Telekom-Begriff für eine logische Gruppierung von einer oder mehreren CNFs, die gemeinsam eine bestimmte Funktion im Telekommunikationsnetzwerk bereitstellen.\\
+
+CAS & (Cloud Automation System): Plattform der Deutschen Telekom Technik zur automatisierten Bereitstellung und Verwaltung von Cloud-Infrastruktur und -Anwendungen, mit Schwerpunkt auf CNF-Deployment und -Lifecycle-Management.\\
+
+Clustering & Unüberwachte Lernmethode zur automatischen Gruppierung ähnlicher Datenpunkte basierend auf gemeinsamen Merkmalen oder Eigenschaften. Bei der Fehlermusteranalyse ermöglicht Clustering die Identifikation wiederkehrender Fehlertypen durch Ähnlichkeitsbeziehungen, ohne dass diese zuvor manuell klassifiziert werden müssen.\\
+
+CNF & (Containerized Network Function): Software-Implementierung einer Netzwerkfunktion in Container-Technologie, die traditionelle Hardware-basierte Netzwerkkomponenten ersetzt, wird oft einfach als Anwendung bezeichnet.\\
+
+CNFD & (CNF Descriptor): Wrapper um ein Helm-Chart, der die Integration in übergeordnete Netzwerkdienst-Definitionen ermöglicht und erweiterte Metadaten für das Service-Management bereitstellt.\\
+
+Container & Standardisierte Softwareeinheiten, die Anwendungscode und Abhängigkeiten in einer isolierten Umgebung kapseln, um Portabilität und konsistente Ausführung auf verschiedenen Infrastrukturen zu gewährleisten.\\
+
+DSO & (Domain Service Orchestrator): Managementsystem der Deutschen Telekom zur automatisierten Orchestrierung, Bereitstellung und Lebenszyklus-Verwaltung von Netzwerkdiensten und deren Komponenten in definierten Domänen.\\
+
+DSR & (Design Science Research): Forschungsmethodik der Wirtschaftsinformatik, fokussiert auf Entwicklung und Evaluation innovativer IT-Artefakte zur Lösung realer Probleme.\\
+
+FHDW & Fachhochschule der Wirtschaft \\
+
+Feed-Forward/Feed-Backward & Konzeptionelles Modell für kontinuierliche Systemverbesserung, bei dem theoretische Grundlagen in praktische Implementierungen überführt werden (Feed-Forward) und Evaluationsergebnisse zu Verbesserungen im Design führen (Feed-Backward).\\
+
+GPT & (Generative Pre-trained Transformer): Spezifische Klasse von LLMs, entwickelt von OpenAI, basierend auf der Transformer-Architektur. Bekannt für seine Fähigkeit, kontextuell relevanten und kohärenten Text zu generieren.\\
+
+Helm Chart & Paket mit vorkonfigurierten Kubernetes-Ressourcendefinitionen zur standardisierten Installation, Aktualisierung und Verwaltung von Container-Anwendungen, insbesondere CNFs.\\
+
+Human-in-the-Loop & Konzept, bei dem Menschen in automatisierten Prozessen an strategischen Punkten eingebunden werden, um Entscheidungen zu treffen, Feedback zu geben oder Ergebnisse zu validieren.\\
+
+KI & (Künstliche Intelligenz) / AI: Teilgebiet der Informatik, das Systeme entwickelt, die menschenähnliche Intelligenzleistungen erbringen, insbesondere Lernen, Problemlösen und Sprachverständnis.\\
+
+Kubernetes & Open-Source-Plattform zur Automatisierung der Bereitstellung, Skalierung und Verwaltung von Container-Anwendungen. Standard-Technologie für Container-Orchestrierung im Enterprise-Umfeld.\\
+
+Kubernetes Object & Persistente Entität im Kubernetes-System, die einen Zustand repräsentiert (z.B.\ Pods, Services, Deployments). Grundbaustein der deklarativen Infrastrukturkonfiguration in Kubernetes.\\
+
+LCM & (Life Cycle Management): Ein Sammelbegriff für alle Prozesse, um eine Anwendung in die Cloud zu bringen, erzeugt vom internem LCM.\\
+
+LLM & (Large Language Model): KI-Modell, trainiert auf umfangreichen Textdatenmengen, das natürliche Sprache verstehen und generieren kann.\\
+
+MAPE-K-Zyklus & Framework für selbstadaptive Systeme mit Monitor-, Analyze-, Plan-, Execute-Komponenten und zentraler Knowledge-Basis, das einen strukturierten Ansatz für kontinuierliches Lernen und Anpassen bietet.\\
+
+Microservice & Architekturmuster, bei dem Anwendungen als Sammlung lose gekoppelter, unabhängiger Dienste strukturiert werden, die jeweils in eigenen Prozessen laufen und über definierte Schnittstellen kommunizieren.\\
+
+ProgressView & Komponente im CAS-Portal zur Anzeige des Deployment-Status, einschließlich Fortschrittsanzeige, Statusmeldungen und Fehlern, in die die CASGPT-Funktionalität integriert wurde.\\
+
+Prompt Engineering & Systematische Entwicklung optimierter Texteingaben für LLMs zur Steuerung und Qualitätssicherung der generierten Ausgaben. Ein kritischer Erfolgsfaktor für den effektiven Einsatz von KI-Sprachmodellen.\\
+
+Self-Consistency & Technik zur Verbesserung der Zuverlässigkeit von LLM-Antworten durch Generierung mehrerer unabhängiger Lösungswege und anschließende Auswahl der häufigsten Antwort. Dies basiert auf dem Prinzip, dass korrekte Lösungen auf verschiedenen Wegen erreichbar sind, während fehlerhafte Schlussfolgerungen zu unterschiedlichen falschen Ergebnissen führen.\\
+
+Vault & Sicheres System zur Speicherung und Verwaltung sensitiver Daten wie API-Tokens und Zugangsdaten, mit kontrollierten Zugriffsrechten.\\
 
 % 2. ----- hier enden die Glossareinträge
 \end{tabularx}

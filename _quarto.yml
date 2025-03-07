@@ -2,7 +2,7 @@ project:
   title: "QArbeit"
   render: 
     - fhdwVorlage.qmd 
-    - MeineArbeit.qmd
+    - Thesis2025UR.qmd
   output-dir: _output
 
 editor: visual
@@ -15,6 +15,7 @@ babel-lang: ngerman
 
 format:
   pdf:
+    latex-tinytex: false
     documentclass: scrartcl
     lang: de
     classoption: 

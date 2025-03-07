@@ -1,0 +1,44 @@
+# Fazit
+
+## Zusammenfassung der Forschungsergebnisse
+
+Diese Arbeit untersuchte die Evolution eines LLM-basierten Fehlererklärungssystems zu einem selbstlernenden System durch systematische Analyse und Feedback. Durch den Feed-Forward/Feed-Backward-Ansatz wurden theoretische Grundlagen, praktische Implementierung und ein evolutionäres Weiterentwicklungskonzept erarbeitet.
+
+Die zentralen Ergebnisse sind:
+
+1.  **Erfolgreiche LLM-Integration:** Die CASGPT-Implementierung demonstriert die effektive Nutzung von LLMs zur Verbesserung der Benutzererfahrung bei komplexen Cloud-Deployments (Brown et al., 2020; Wang et al., 2023).
+2.  **Systemkontext als kritische Limitierung:** Die Evaluation identifizierte mangelnden Systemkontext als zentrale Einschränkung, was die Notwendigkeit einer dynamischen Kontextintegration unterstreicht (Talukdar & Biswas, 2023).
+3.  **MAPE-K als Evolutionsrahmen:** Das MAPE-K-Framework bietet ein strukturiertes Modell für die Evolution zu einem selbstlernenden System (Cheng et al., 2009; Wong et al., 2022).
+4.  **Proaktive Fähigkeiten als Ziel:** Der konzipierte Übergang von reaktiven Erklärungen zu proaktiven Empfehlungen und Fehlervorhersagen zeigt das Potenzial der Kombination von LLMs mit Mustererkennungstechniken (Vorobyov et al., 2021; Wang et al., 2022).
+
+Diese Ergebnisse adressieren direkt die Hauptforschungsfrage zur Evolution eines LLM-basierten Fehlererklärungssystems zu einem selbstlernenden System und liefern konkrete Konzepte für die praktische Umsetzung.
+
+## Praktische Implikationen
+
+Die Forschungsergebnisse haben wichtige praktische Implikationen für Organisationen:
+
+-   Bereits ein Basissystem ohne umfassenden Systemkontext bietet durch verbesserte Transparenz einen Mehrwert für Benutzer und Organisationen. Die Experteninterviews bestätigten, dass selbst generische Erklärungen zu einem besseren Verständnis komplexer Fehlermeldungen beitragen können.
+-   Die schrittweise Evolution ermöglicht einen inkrementellen Ansatz mit kontinuierlichem Wertbeitrag. Organisationen können mit grundlegenden Funktionen beginnen und das System systematisch erweitern, ohne umfangreiche Vorabinvestitionen.
+-   Feedback ist die Schlüsselressource für den Übergang zu selbstlernenden Systemen. Die konsequente Sammlung und Analyse von Benutzerfeedback bildet die Grundlage für kontinuierliche Verbesserung und Adaptation.
+
+Diese Implikationen gelten nicht nur für Fehlererklärungssysteme, sondern können auf weitere KI-gestützte Assistenzsysteme in Enterprise-Umgebungen übertragen werden (Devaraju, 2024; Perron et al., 2025).
+
+## Limitationen und kritische Reflexion
+
+Diese Arbeit unterliegt mehreren Limitationen:
+
+-   **Prototypischer Charakter:** Das volle Potenzial des Systems würde sich erst im langfristigen produktiven Einsatz zeigen. Die tatsächliche Nutzungserfahrung könnte zu weiteren Erkenntnissen führen, die im Rahmen dieser Arbeit nicht antizipiert werden konnten.
+-   **Konzeptionelle vs. implementierte Evolution:** Das Weiterentwicklungskonzept wurde theoretisch ausgearbeitet, aber nicht vollständig implementiert. Die praktische Umsetzung könnte zusätzliche Herausforderungen offenbaren, die weitere Anpassungen erfordern.
+-   **Generalisierbarkeit:** Die Ergebnisse beziehen sich spezifisch auf den CAS-Kontext und Deployment-Fehler im Cloud-Umfeld. Obwohl die grundlegenden Prinzipien übertragbar sein dürften, können in anderen Domänen spezifische Anpassungen erforderlich sein.
+
+## Ausblick
+
+Diese Forschung eröffnet mehrere vielversprechende Richtungen für zukünftige Arbeit:
+
+-   **Erweiterte Lernmethoden:** Integration von Reinforcement Learning from Human Feedback (RLHF) (Stiennon et al., 2020) und ausgereifteren Human-in-the-Loop-Ansätzen (Wu et al., 2022). Diese könnten die Adaptivität des Systems weiter verbessern und den Übergang zu einem vollständig selbstlernenden System beschleunigen.
+-   **Multi-Agent-Systeme:** Verteilte Fehleranalyse durch spezialisierte Agenten für verschiedene Aspekte der Systemdiagnose. Dieses Konzept könnte die Skalierbarkeit und Spezifität der Fehleranalyse verbessern, indem verschiedene Agenten für unterschiedliche Systemkomponenten oder Fehlertypen spezialisiert werden.
+-   **Domänenadaption:** Übertragung des Konzepts auf andere Cloud-Plattformen und Deployment-Umgebungen. Die generischen Prinzipien des Feed-Forward/Feed-Backward-Ansatzes und der systematischen Evolution könnten auf andere technische Domänen angewendet werden.
+-   **Balance zwischen Erklärbarkeit und Leistungsfähigkeit:** Weitere Forschung zur optimalen Balance zwischen detaillierten, transparenten Erklärungen und effizienter, prägnanter Kommunikation ist notwendig. Dies betrifft insbesondere die Frage, wie viel Kontext und technisches Detail für verschiedene Benutzergruppen hilfreich ist.
+-   **Vertrauen in KI-generierte Erklärungen:** Untersuchung der Faktoren, die das Vertrauen in LLM-generierte technische Erklärungen beeinflussen. Die Akzeptanz solcher Systeme hängt maßgeblich vom Vertrauen der Benutzer ab, was weitere Forschung zu Transparenz, Konsistenz und Nachvollziehbarkeit erfordert.
+
+Die Evolution von LLM-basierten Assistenzsystemen steht noch am Anfang. Diese Arbeit liefert einen Beitrag durch die systematische Untersuchung der Integration und Evolution eines spezifischen Anwendungsfalls, bietet jedoch gleichzeitig einen konzeptionellen Rahmen für die weitere Erforschung selbstlernender KI-Systeme in Enterprise-Umgebungen.

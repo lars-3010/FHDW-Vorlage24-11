@@ -1,0 +1,135 @@
+# System und Implementierung
+
+## CAS-Systemüberblick
+
+**Problemstellung:** Die in der Einleitung ausführlich dargestellte Problematik unverständlicher Fehlermeldungen manifestiert sich besonders im Cloud Automation System (CAS) der Deutschen Telekom, das die Bereitstellung von Cloud-Ressourcen automatisiert.
+
+**Zielbenutzer:** Die primären Benutzer von CAS sind DevOps-Ingenieure und Anwendungsentwickler mit heterogenen Erfahrungsniveaus. Während einige Experten mit dem Debugging komplexer Systemfehler vertraut sind, benötigen andere Benutzer zusätzliche Unterstützung bei der Fehlerbehebung. Diese Heterogenität stellte eine besondere Herausforderung bei der Entwicklung des "Explain by AI"-Features dar, da die Erklärungen für Benutzer mit unterschiedlichem technischen Hintergrund verständlich sein müssen.
+
+## Das "Explain by AI"-Feature (CASGPT)
+
+### Konzeption und User Journey
+
+Das "Explain by AI"-Feature (CASGPT) wurde konzipiert, um das Problem unverständlicher Fehlermeldungen zu adressieren und folgt dem Feed-Forward-Ansatz, bei dem theoretische Überlegungen zu LLMs und Prompt Engineering in eine praktische Implementierung überführt werden. Die typische Benutzerinteraktion umfasst das Auftreten eines Fehlers während des Deployments, das Anklicken der "Explain by AI"-Schaltfläche neben der Fehlermeldung, die automatische Analyse und Kategorisierung durch das System und die Bereitstellung einer verständlichen Erklärung in natürlicher Sprache. Diese enthält Informationen zur Ursache, potenziellen Auswirkungen und möglichen Lösungsansätzen, was dem Benutzer ermöglicht, gezielt Korrekturmaßnahmen zu ergreifen. (Abbildung A.1)
+
+### Funktionaler Umfang und Benutzeroberfläche
+
+CASGPT ist nahtlos in die bestehende CAS-Benutzeroberfläche integriert und erscheint als Schaltfläche "Explain by AI" neben Fehlermeldungen in der Deployment-Fortschrittsanzeige (ProgressView). Die Hauptfunktionalitäten umfassen die automatische Fehleranalyse, natürlichsprachliche Erklärung, strukturierte Ausgabe und kontextspezifische Informationen basierend auf der identifizierten Fehlerkategorie. Die Benutzeroberfläche wurde bewusst einfach gehalten, um die Benutzerakzeptanz zu fördern.
+
+## Systemarchitektur
+
+### Architekturüberblick
+
+CASGPT ist als Microservice-Architektur implementiert, wobei die einzelnen Komponenten lose gekoppelt sind und über definierte Schnittstellen kommunizieren. Diese Architekturentscheidung ermöglicht Skalierbarkeit, Wartbarkeit und Fehlertoleranz (Oyekunle et al., 2024; Laigner et al., 2021) und unterstützt den iterativen Feed-Forward/Feed-Backward-Ansatz durch die Möglichkeit, einzelne Komponenten unabhängig zu aktualisieren. Der Kommunikationsfluss umfasst drei Hauptpfade: vom Frontend (Angular) zum Backend (Python/FastAPI), vom Backend zum LLM-Service (Azure OpenAI) und zurück vom Backend zum Frontend zur Anzeige der generierten Erklärung (Abbildung A.2).
+
+### Komponentenbeschreibung
+
+**Frontend (Angular)**
+
+-   Erweiterte `ProgressComponent` zur Integration der "Explain by AI"-Funktionalität und State Management des Erklärungsstatus
+
+-   Erweiterte `ApiService` für die Kommunikation mit dem Backend **Backend (Python/FastAPI)**
+
+-   `Gateway` mit neuem Endpunkt für CASGPT-Anfragen
+
+-   `ErrorExplanationHandler` als Kernkomponente für Fehlerverarbeitung (Code A.11)
+
+-   `PromptConfig` für die Verwaltung von Prompts und Kategorien (Code A.10)
+
+**LLM-Integration (Azure OpenAI):** Intern gehostete GPT-4-Instanz mit sicherer Verbindung über Azure OpenAI API Diese lose gekoppelten Komponenten kommunizieren über definierte Schnittstellen und unterstützen dadurch den iterativen Feed-Forward/Feed-Backward-Ansatz.
+
+### Datenfluss und Sequenz
+
+![Datenfluss Sequenzdiagramm](img/DatenflussSequenzdiagramm.png)
+
+Der detaillierte Datenfluss bei einer typischen Anfrage umfasst acht Schritte: von der Benutzerinteraktion über die Extraktion der Fehlermeldung, die HTTP-Anfrage, die Weiterleitung ans Backend, die Fehleranalyse und Prompt-Erstellung, die LLM-Interaktion bis zur Rückgabe und Anzeige der Erklärung. Dieser Prozess dauert typischerweise 3-5 Sekunden, was als akzeptable Reaktionszeit eingestuft wurde (Abbildung 1).
+
+### Entwicklungs- und Zielumgebung
+
+Das CAS-System selbst ist in einem Kubernetes-Cluster deployed, während CASGPT derzeit als Prototyp in einer lokalen Entwicklungsumgebung läuft. Die lokale Entwicklung erfolgt mithilfe von Docker-Containern, um die Portabilität zu gewährleisten und eine konsistente Entwicklungsumgebung für alle Teammitglieder zu schaffen. Die Fehlermeldungen werden vom internen Life Cycle Management (LCM) generiert, das für die Orchestrierung des gesamten Deployment-Prozesses verantwortlich ist. Für die zukünftige vollständige Integration ist ein Deployment in der bestehenden Kubernetes-Infrastruktur geplant.
+
+## Prompt-Engineering und -Konfiguration
+
+### Architektur der Prompt-Konfiguration
+
+Das Prompt-Engineering bildet das Herzstück des CASGPT-Systems und repräsentiert einen zentralen Feed-Forward-Aspekt der Implementierung. Die Prompt-Konfiguration ist als eigenständige Komponente (`PromptConfig`) implementiert, um eine klare Trennung der Verantwortlichkeiten zu gewährleisten und zukünftige Erweiterungen im Sinne des Feed-Forward/Feed-Backward-Paradigmas zu erleichtern (White et al., 2023). Der detaillierte Workflow des Prompt-Engineering-Prozesses veranschaulicht die Entwicklung von einer einfachen Erklärung hin zu einer ursachenabhängigen, mit Kategorien angereicherten und formatierten Erklärung (Abbildung A.3).
+
+Die Hauptklassen der Implementierung umfassen:
+
+-   **PromptConfig:** Zentrale Klasse für die Initialisierung der Konfiguration und die Bereitstellung von Methoden zur Generierung von System- und Error-Prompts
+
+-   **ErrorType (Enum):** Definition verschiedener Fehlertypen (System Error, User-Fixable Error, etc.)
+
+-   **ErrorCategory:** Repräsentation einer Fehlerkategorie mit zugehörigen Mustern, Kontext und Fehlertyp
+
+-   **ErrorPattern:** Definition eines Musters zur Erkennung einer Fehlerkategorie mit Gewichtungsfaktor
+
+-   **Message:** Repräsentation einer Nachricht mit Rolle und Inhalt für die LLM-Kommunikation
+
+![Prompt Flow Diagramm](img/PromptFlowDiagramm.png)
+
+Die Fehlerkategorisierung basiert auf einem Mustererkennungssystem mit regulären Ausdrücken und einem gewichteten Scoring-Mechanismus. Das System umfasst sieben Hauptkategorien typischer CAS-Fehler: Datenverarbeitung, Service-Verfügbarkeit, Konfiguration, Deployment, Netzwerk, Laufzeitausnahmen und eine allgemeine Kategorie. Durch die Analyse von Log-Dateien mit dem LLM Claude 3.5 Sonnet wurden die Fehlerkategorien ermittelt. Der Musterabgleich prüft die regulären Ausdrücke jeder Kategorie gegen die eingehende Fehlermeldung und berechnet einen Score basierend auf Gewichtung und Spezifität der Muster. Die Kategorie mit dem höchsten Score wird für die Fehlermeldung ausgewählt, wodurch eine präzise Kategorisierung und zielgerichtete Erklärungen ermöglicht werden (Vorobyov et al., 2021; Abbildung A2; Code A.10).
+
+### Prompt-Struktur
+
+Die Prompt-Struktur orientiert sich an Best Practices und ist in drei Hauptkomponenten unterteilt:
+
+1\. **System Prompt:** Dieser Prompt legt die grundlegende Rolle und das erwartete Verhalten des LLM fest und bleibt über alle Anfragen hinweg konstant. Er definiert das LLM als Experten für Fehlererklärungen im Kontext der Deployment-Infrastruktur von CAS.
+
+2\. **Error Prompts:** Diese Prompts werden dynamisch auf Basis der identifizierten Fehlerkategorie generiert. Sie enthalten die originale Fehlermeldung, die zugeordnete Kategorie, relevanten kategoriespezifischen Kontext und aus der Fehlermeldung extrahierte Schlüsselwörter.
+
+3\. **Response Templates:** Diese Templates definieren die erwartete Struktur der LLM-Antwort. Sie variieren je nach Fehlertyp (z.B. Standard, Quick-Fix, User-Error), um sicherzustellen, dass die Erklärungen jeweils die relevantesten Informationen enthalten (Ursache, Auswirkung, Lösungsschritte).
+
+Das übergeordnete Ziel der Prompt-Gestaltung ist es, technische Konzepte auch für Benutzer mit unterschiedlichem Vorwissen verständlich zu machen und Fehlermeldungen in eine möglichst natürliche und zugängliche Sprache zu übersetzen. Der vollständige System Prompt sowie Beispiele für Error Prompts und Response Templates sind zur Referenz in Anhang C dokumentiert (Vatsal & Dubey, 2024; White et al., 2023; Code A.10).
+
+### Aktuelle Einschränkungen und Abgrenzung
+
+Die aktuelle Implementierung integriert bewusst keinen dynamischen, systemspezifischen Kontext in den Prompt-Engineering-Prozess. Diese Abgrenzung wurde vorgenommen, um den Implementierungsumfang realistisch zu halten, eine definierte Ausgangsbasis für die Evaluation zu schaffen und das Potenzial für Weiterentwicklung zu demonstrieren. Konkret fehlen der aktuellen Implementierung wichtige Kontextinformationen wie spezifische Konfigurationen der betroffenen Dienste, Versionsdetails der verwendeten Software und Container, Status abhängiger Komponenten sowie historische Fehlerinformationen für ähnliche Deployments. Diese fehlenden Kontextinformationen limitieren die Spezifität und Handlungsrelevanz der Erklärungen, was in den Experteninterviews als Hauptverbesserungspotential identifiziert wurde und einen zentralen Aspekt des evolutionären Weiterentwicklungskonzepts bildet.
+
+## Entwicklungsprozess
+
+Das Feature wurde iterativ entwickelt, wobei Feedback aus internen Demo-Tests und Diskussionen im Team kontinuierlich in die Designentscheidungen einfloss. Dieser iterative Prozess spiegelt den Feed-Forward/Feed-Backward-Ansatz wider: ein initiales Design basierend auf theoretischen Grundlagen (Feed-Forward) und kontinuierliche Verbesserung basierend auf frühem Feedback (Feed-Backward). Ein konkretes Beispiel für diesen iterativen Verbesserungsprozess ist die Evolution der Prompts von einfachen Anfragen ("Explain this error message: {error_message}") zu strukturierten, kontextspezifischen Prompts mit detaillierten Anweisungen und kategoriespezifischem Kontext (Abbildung A.3).
+
+## Technische Herausforderungen
+
+Bei der Implementierung von CASGPT waren zwei zentrale technische Herausforderungen zu bewältigen:
+
+**Integration in bestehende Systemkomponenten:** Die nahtlose Einbindung in die Architektur des CAS-Systems erforderte tiefgreifendes Verständnis der bestehenden Komponenten und Datenflüsse. Besonders die Erweiterung der ProgressComponent und des ApiService sowie die Integration in das Gateway unter Beibehaltung der Sicherheitsmechanismen stellten anspruchsvolle Aufgaben dar.
+
+**Prompt-Konfiguration:** Die Entwicklung eines effektiven Kategorisierungssystems mit Mustern für verschiedene Fehlertypen erforderte umfangreiche Analyse realer Fehlermeldungen. Die größte Herausforderung bestand darin, eine Balance zwischen generalisierten Erklärungen für diverse Fehler und spezifischen, handlungsrelevanten Informationen zu finden. Der iterative Ansatz zur Verfeinerung der Prompt-Konfiguration anhand von Testfällen mit realen Fehlermeldungen ermöglichte die schrittweise Optimierung der Erklärungsqualität.
+
+## Sicherheitsaspekte
+
+### Sicherheitsmaßnahmen
+
+Bei der Implementierung wurden verschiedene Sicherheitsmaßnahmen getroffen, um den Enterprise-Anforderungen gerecht zu werden:
+
+1\. Nutzung eines intern gehosteten LLM in Schweden für Datensouveränität und DSGVO-Konformität
+
+2\. direkte Extraktion der Fehlermeldungen aus Systemlogs zur Vermeidung von XSS-Schwachstellen
+
+3\. Integration in bestehende Sicherheitsmechanismen des API-Gateways
+
+4\. sichere Speicherung sensitiver Tokens in Vault.
+
+Diese Maßnahmen stellen sicher, dass CASGPT keine neuen Sicherheitsrisiken einführt.
+
+### Umgang mit LLM-Limitationen
+
+CASGPT implementiert mehrere gezielte Maßnahmen, um den diskutierten Limitationen zu begegnen:
+
+**Gegen Halluzinationen:** - Strukturierte Prompts mit klaren Antwortformaten
+
+-   Reflection Pattern zur kritischen Selbstreflexion des LLM
+
+-   Template Pattern zur Strukturierung der Ausgaben
+
+**Gegen mangelndes Systemkontextwissen:**
+
+-   Fehlerkategorisierung für kategoriespezifischen Kontext
+
+-   Kontextuelle Anreicherung durch Extraktion relevanter Informationen
+
+-   Bewusste Abgrenzung zur Schaffung einer definierten Evaluationsbasis
+
+Diese Gegenmaßnahmen bilden die Grundlage für die initiale Implementierung und werden im Rahmen der evolutionären Weiterentwicklung optimiert.

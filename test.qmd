@@ -1,0 +1,10 @@
+---
+format:
+  pdf:
+    documentclass: scrartcl
+    latex-tinytex: false
+---
+
+# Test
+
+Simple test document.
